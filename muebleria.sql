@@ -26,10 +26,10 @@ INSERT INTO categoria VALUES('C0002','usuario','Usuarios generales');
 CREATE TABLE `articulos` (
   `art_cod` char(5) NOT NULL DEFAULT '' PRIMARY KEY,
   `art_nom` varchar(30) DEFAULT NULL,
-  `art_uni` char(4) DEFAULT NULL,
+  `art_des` varchar(60) DEFAULT NULL,
   `art_pre` decimal(10,2) DEFAULT NULL,
   `art_stk` int(11) DEFAULT NULL,
-  `pro_cod` int(11) DEFAULT NULL
+  `pro_cod` char(5) DEFAULT NULL
 );
 
 
@@ -55,7 +55,7 @@ CREATE TABLE `fac_deta` (
 );
 
 CREATE TABLE `proveedor` (
-  `pro_cod` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `pro_cod` char(5) NOT NULL PRIMARY KEY,
   `pro_nom` varchar(25) DEFAULT NULL,
   `pro_ruc` int(11) DEFAULT NULL
 );
@@ -76,4 +76,3 @@ ADD CONSTRAINT `fk_articulos_proveedor` FOREIGN KEY (`pro_cod`) REFERENCES `prov
 
 ALTER TABLE `usuario`
 ADD CONSTRAINT `fk_usuario_categoria` FOREIGN KEY (`cat_cod`) REFERENCES `categoria` (`cat_cod`);
-
