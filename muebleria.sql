@@ -26,9 +26,10 @@ INSERT INTO categoria VALUES('C0002','usuario','Usuarios generales');
 CREATE TABLE `articulos` (
   `art_cod` char(5) NOT NULL DEFAULT '' PRIMARY KEY,
   `art_nom` varchar(30) DEFAULT NULL,
-  `art_uni` char(4) DEFAULT NULL,
+  `art_des` varchar(60) DEFAULT NULL,
   `art_pre` decimal(10,2) DEFAULT NULL,
-  `art_stk` int(11) DEFAULT NULL
+  `art_stk` int(11) DEFAULT NULL,
+  `pro_cod` char(5) DEFAULT NULL
 );
 
 
@@ -44,8 +45,7 @@ CREATE TABLE `fac_cabe` (
   `fac_num` char(12) NOT NULL PRIMARY KEY DEFAULT '',
   `fac_fec` datetime DEFAULT NULL,
   `cli_cod` char(5) DEFAULT NULL,
-  `fac_igv` char(1) DEFAULT NULL,
-  `pro_cod` int(11) DEFAULT NULL
+  `fac_igv` char(1) DEFAULT NULL
 );
 
 CREATE TABLE `fac_deta` (
@@ -55,7 +55,7 @@ CREATE TABLE `fac_deta` (
 );
 
 CREATE TABLE `proveedor` (
-  `pro_cod` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `pro_cod` char(5) NOT NULL PRIMARY KEY,
   `pro_nom` varchar(25) DEFAULT NULL,
   `pro_ruc` int(11) DEFAULT NULL
 );
@@ -71,9 +71,8 @@ ADD CONSTRAINT `fk_fac_deta_articulos` FOREIGN KEY (`art_cod`) REFERENCES `artic
 ALTER TABLE `fac_deta`
 ADD CONSTRAINT `fk_fac_deta_fac_cabe` FOREIGN KEY (`fac_num`) REFERENCES `fac_cabe` (`fac_num`);
 
-ALTER TABLE `fac_cabe`
-ADD CONSTRAINT `fk_fac_cabe_proveedor` FOREIGN KEY (`pro_cod`) REFERENCES `proveedor` (`pro_cod`);
+ALTER TABLE `articulos`
+ADD CONSTRAINT `fk_articulos_proveedor` FOREIGN KEY (`pro_cod`) REFERENCES `proveedor` (`pro_cod`);
 
 ALTER TABLE `usuario`
 ADD CONSTRAINT `fk_usuario_categoria` FOREIGN KEY (`cat_cod`) REFERENCES `categoria` (`cat_cod`);
-
