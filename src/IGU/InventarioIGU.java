@@ -28,7 +28,7 @@ public class InventarioIGU extends javax.swing.JFrame {
        String[] fila=new String[4];
         try {
           //conectarse a la base de datos
-        String xurl="jdbc:mysql://localhost/bdcasahogar";
+        String xurl="jdbc:mysql://localhost/muebleria";
         String xusu="root";
         String xpas="";
         
@@ -36,13 +36,13 @@ public class InventarioIGU extends javax.swing.JFrame {
         //crear la consulta
         Statement declarar=conex.createStatement();
         //mostrar la consulta
-        String xsql="SELECT * FROM inventario";
+        String xsql="SELECT art_cod, art_nom, art_pre, art_stk FROM articulos";
         ResultSet rs=declarar.executeQuery(xsql);
         while(rs.next()){
-           fila[0]=rs.getString("cod_prod");
-           fila[1]=rs.getString("nom_prod");
-           fila[2]=rs.getString("pre_prod");
-           fila[3]=rs.getString("stock_prod");
+           fila[0]=rs.getString("art_cod");
+           fila[1]=rs.getString("art_nom");
+           fila[2]=rs.getString("art_pre");
+           fila[3]=rs.getString("art_stk");
            tabla.addRow(fila);
         }
         tbInventario.setModel(tabla);

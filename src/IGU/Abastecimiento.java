@@ -251,7 +251,7 @@ public class Abastecimiento extends javax.swing.JFrame {
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 530, 200, 60));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Almacen_End.jpg"))); // NOI18N
-        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 740));
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1020, 740));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

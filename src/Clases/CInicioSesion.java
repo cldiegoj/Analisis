@@ -37,10 +37,7 @@ public class CInicioSesion {
         this.correcto=false;
     }
     } 
-  //diego esta con hambre  
-  
-  //aldair
-  
+
 }
 
 
