@@ -2,48 +2,36 @@ package Clases;
 
 
 public class Proveedores{
-    String codigo;
-    String nombreP;
-    int cantidad;
-    double total;
+    private String pro_cod;
+    private String pro_nom;
+    private int pro_ruc;
 
-    public Proveedores(String codigo,String nombreP, int cantidad, double total) {
-        this.codigo=codigo;
-        this.nombreP = nombreP;
-        this.cantidad = cantidad;
-        this.total = total;
+    public String getPro_cod() {
+        return pro_cod;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public void setPro_cod(String pro_cod) {
+        this.pro_cod = pro_cod;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public String getPro_nom() {
+        return pro_nom;
     }
 
-    public String getNombreP() {
-        return nombreP;
+    public void setPro_nom(String pro_nom) {
+        this.pro_nom = pro_nom;
     }
 
-    public void setNombreP(String nombreP) {
-        this.nombreP = nombreP;
+    public int getPro_ruc() {
+        return pro_ruc;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public void setPro_ruc(int pro_ruc) {
+        this.pro_ruc = pro_ruc;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public Proveedores() {
     }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
-    }
+    
     
 }
