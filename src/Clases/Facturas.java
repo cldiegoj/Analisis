@@ -1,7 +1,9 @@
 
 package Clases;
 
-public class Facturas{
+import java.io.Serializable;
+
+public class Facturas implements Serializable{
     String codigo;
     private String Nombre;
     private int RUC;

@@ -4,6 +4,7 @@ package Clases;
 
 import javax.swing.JOptionPane;
 
+
 public class CInicioSesion {
     String idU;
     String contraseña;
@@ -37,7 +38,7 @@ public class CInicioSesion {
         this.correcto=false;
     }
     } 
-
+    
 }
 
 
