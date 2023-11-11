@@ -6,7 +6,7 @@ package IGU;
 
 
 
-import Clases.Facturas;
+import Clases.Factura;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
@@ -262,7 +262,7 @@ public class FacturaIGU extends javax.swing.JFrame {
         String xurl="jdbc:mysql://localhost/bdcasahogar";
         String xusu="root";
         String xpas="";
-        Facturas fac=new Facturas(txtCodigo.getText(), txtNombreEmpresa.getText(), Integer.parseInt(txtRuc.getText()), txtFecha.getText(), txtDireccion.getText(), Double.parseDouble(txtTotal.getText()));
+        Factura fac=new Factura(txtCodigo.getText(), txtNombreEmpresa.getText(), Integer.parseInt(txtRuc.getText()), txtFecha.getText(), txtDireccion.getText(), Double.parseDouble(txtTotal.getText()));
         Connection conex= DriverManager.getConnection(xurl,xusu,xpas);
         //crear la consulta
         Statement declarar=conex.createStatement();

@@ -2,7 +2,7 @@
 package Clases;
 
 
-public class Articulos {
+public class Articulo {
     private String art_cod;
     private String art_nom;
     private String art_des;
@@ -10,7 +10,7 @@ public class Articulos {
     private int art_stk;
     private String pro_cod;
 
-    public Articulos(String art_cod, String art_nom, String art_des, double art_pre, int art_stk, String pro_cod) {
+    public Articulo(String art_cod, String art_nom, String art_des, double art_pre, int art_stk, String pro_cod) {
         this.art_cod = art_cod;
         this.art_nom = art_nom;
         this.art_des = art_des;
@@ -19,7 +19,7 @@ public class Articulos {
         this.pro_cod = pro_cod;
     }  
     
-    public Articulos(){
+    public Articulo(){
         
     }
 

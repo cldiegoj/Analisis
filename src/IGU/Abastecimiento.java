@@ -115,6 +115,7 @@ public class Abastecimiento extends javax.swing.JFrame {
         lbImagen = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cbxProovedor = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbPrecios = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
@@ -216,6 +217,9 @@ public class Abastecimiento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cbxProovedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 260, 40));
+
+        jButton2.setText("jButton2");
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, -1, -1));
 
         tbPrecios.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tbPrecios.setForeground(new java.awt.Color(51, 51, 51));
@@ -464,6 +468,7 @@ public class Abastecimiento extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxProovedor;
     private javax.swing.JLabel fondo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

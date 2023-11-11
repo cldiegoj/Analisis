@@ -3,7 +3,7 @@ package Clases;
 
 import java.io.Serializable;
 
-public class Facturas implements Serializable{
+public class Factura implements Serializable{
     String codigo;
     private String Nombre;
     private int RUC;
@@ -12,7 +12,7 @@ public class Facturas implements Serializable{
     private double Total;
     
 
-    public Facturas(String codigo,String Nombre, int RUC, String direccion, String Fecha, double Total) {
+    public Factura(String codigo,String Nombre, int RUC, String direccion, String Fecha, double Total) {
         this.codigo=codigo;
         this.Nombre = Nombre;
         this.RUC = RUC;
