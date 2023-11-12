@@ -4,57 +4,40 @@
  */
 package IGU;
 
-
+import ModeloDAO.*;
+import Clases.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import java.util.List;
 
 public class RegistroProveedores extends javax.swing.JFrame {
 
-    
+    ProveedorDAO proveedordao = new ProveedorDAO();
     DefaultTableModel tabla;
+
     public RegistroProveedores() {
         initComponents();
         this.setLocationRelativeTo(null);
         cargarRegistroAlaTabla();
-     
-    }
-     public void cargarRegistroAlaTabla(){
-       String[] titulo={"Codigo","Nombre Proveedor","Cantidad","Total"};
-       tabla=new DefaultTableModel(null,titulo);
-       String[] fila=new String[4];
-        try {
-          //conectarse a la base de datos
-        String xurl="jdbc:mysql://localhost/bdcasahogar";
-        String xusu="root";
-        String xpas="";
-        
-        Connection conex= DriverManager.getConnection(xurl,xusu,xpas);
-        //crear la consulta
-        Statement declarar=conex.createStatement();
-        //mostrar la consulta
-        String xsql="SELECT * FROM registroproveedores";
-        ResultSet rs=declarar.executeQuery(xsql);
-        while(rs.next()){
-           fila[0]=rs.getString("cod_prov");
-           fila[1]=rs.getString("nom_prov");
-           fila[2]=rs.getString("can_prov");
-           fila[3]=rs.getString("tot_prov");
-           tabla.addRow(fila);
-        }
-        tablaProveedores.setModel(tabla);
-        double total=0;
-            for (int i = 0; i < tabla.getRowCount(); i++) {
-                total=total+Double.parseDouble(tablaProveedores.getValueAt(i, 3).toString());
-            }
-            txtTotal.setText(String.valueOf(total));
-            
-        } catch (SQLException ex) {
-            System.out.println("Error en la conexion...");
-        }
-       
+
     }
 
-    
+    public void cargarRegistroAlaTabla() {
+        String[] titulo = {"Codigo", "Nombre Proveedor", "RUC"};
+        tabla = new DefaultTableModel(null, titulo);
+        String[] fila = new String[3];
+
+        List<Proveedor> lista = proveedordao.listado();
+
+        for (Proveedor x : lista) {
+            fila[0] = x.getPro_cod();
+            fila[1] = x.getPro_nom();
+            fila[2] = Integer.toString(x.getPro_ruc());
+            tabla.addRow(fila);
+        }
+        tablaProveedores.setModel(tabla);
+
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -72,8 +55,6 @@ public class RegistroProveedores extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        txtTotal = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -195,16 +176,6 @@ public class RegistroProveedores extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, 210, 690));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        jLabel1.setText("Total:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 640, 70, 40));
-
-        txtTotal.setBackground(new java.awt.Color(255, 255, 255));
-        txtTotal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtTotal.setText("0");
-        txtTotal.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        getContentPane().add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 640, 130, 40));
-
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Factura_End (3).jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 690));
 
@@ -212,31 +183,31 @@ public class RegistroProveedores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Abastecimiento pro=new Abastecimiento();
+        Abastecimiento pro = new Abastecimiento();
         pro.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        Pedidos pedido=new Pedidos();
+        Pedidos pedido = new Pedidos();
         pedido.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        InventarioIGU inve=new InventarioIGU();
+        InventarioIGU inve = new InventarioIGU();
         inve.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        RegistroProveedores reg=new RegistroProveedores();
+        RegistroProveedores reg = new RegistroProveedores();
         reg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        Vista menu=new Vista();
+        Vista menu = new Vista();
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -246,9 +217,9 @@ public class RegistroProveedores extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-     RegistroFacturas fac=new RegistroFacturas();
-     fac.setVisible(true);
-     this.dispose();
+        RegistroFacturas fac = new RegistroFacturas();
+        fac.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
@@ -298,12 +269,10 @@ public class RegistroProveedores extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tablaProveedores;
-    private javax.swing.JLabel txtTotal;
     // End of variables declaration//GEN-END:variables
 }

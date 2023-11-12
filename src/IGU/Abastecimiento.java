@@ -1,9 +1,6 @@
-
-
 package IGU;
 
-
-import Clases.Proveedores;
+import Clases.*;
 import static IGU.FacturaIGU.txtIGV;
 import static IGU.FacturaIGU.txtSubtotal;
 import static IGU.FacturaIGU.txtTotal;
@@ -18,87 +15,91 @@ import java.sql.*;
 
 public class Abastecimiento extends javax.swing.JFrame {
 
-    DefaultTableModel modelo2=new DefaultTableModel();
-    InventarioIGU inve=new InventarioIGU();
+    DefaultTableModel modelo2 = new DefaultTableModel();
+    InventarioIGU inve = new InventarioIGU();
     private ImageIcon imagen;
     private Icon icono;
-    
+
     public Abastecimiento() {
         initComponents();
-        this.setLocationRelativeTo(null);  
+        this.setLocationRelativeTo(null);
         tbPedidos.setModel(modelo2);
-        String[] cabecera={"Codigo Producto","Nombre Producto","Precio Unitario","Cantidad","Subtotal"};
-        modelo2.setColumnIdentifiers(cabecera);   
+        String[] cabecera = {"Codigo Producto", "Nombre Producto", "Precio Unitario", "Cantidad", "Subtotal"};
+        modelo2.setColumnIdentifiers(cabecera);
         llenarCombo();
         llenarComboProveedor();
     }
-    public void mensaje(String mensaje){
+
+    public void mensaje(String mensaje) {
         JOptionPane.showMessageDialog(null, mensaje);
     }
-     private  void pintarImagen(JLabel lbl, String ruta){
-        this.imagen= new ImageIcon(ruta);
-        this.icono= new ImageIcon(this.imagen.getImage().getScaledInstance(lbl.getWidth(), lbl.getHeight(),Image.SCALE_DEFAULT));
+
+    private void pintarImagen(JLabel lbl, String ruta) {
+        this.imagen = new ImageIcon(ruta);
+        this.icono = new ImageIcon(this.imagen.getImage().getScaledInstance(lbl.getWidth(), lbl.getHeight(), Image.SCALE_DEFAULT));
         lbl.setIcon(this.icono);
-}
-     public void sumar(int cantidad,String nombre){
-         try{
-        String xurl="jdbc:mysql://localhost/bdcasahogar";
-        String xusu="root";
-        String xpas="";
-        
-        Connection conex= DriverManager.getConnection(xurl,xusu,xpas);
-     
-        Statement declarar=conex.createStatement();
-    
-        String xsql="UPDATE inventario SET stock_prod=stock_prod+"+cantidad+" WHERE nom_prod='"+nombre+"'";
-        declarar.execute(xsql);
-        }catch(SQLException ex){
+    }
+
+    public void sumar(int cantidad, String nombre) {
+        try {
+            String xurl = "jdbc:mysql://localhost/bdcasahogar";
+            String xusu = "root";
+            String xpas = "";
+
+            Connection conex = DriverManager.getConnection(xurl, xusu, xpas);
+
+            Statement declarar = conex.createStatement();
+
+            String xsql = "UPDATE inventario SET stock_prod=stock_prod+" + cantidad + " WHERE nom_prod='" + nombre + "'";
+            declarar.execute(xsql);
+        } catch (SQLException ex) {
             System.out.println("Error...Falla en la conexion");
         }
-     }
- public void llenarCombo(){
-          try {
-         
-        String xurl="jdbc:mysql://localhost/bdcasahogar";
-        String xusu="root";
-        String xpas="";
-        
-        Connection conex= DriverManager.getConnection(xurl,xusu,xpas);
-     
-        Statement declarar=conex.createStatement();
-       
-        String xsql="SELECT nom_prod from inventario";
-        ResultSet rs=declarar.executeQuery(xsql);
-        while(rs.next()){  
-            
-        cbxProducto.addItem(rs.getString("nom_prod"));        
-        }
+    }
+
+    public void llenarCombo() {
+        try {
+
+            String xurl = "jdbc:mysql://localhost/bdcasahogar";
+            String xusu = "root";
+            String xpas = "";
+
+            Connection conex = DriverManager.getConnection(xurl, xusu, xpas);
+
+            Statement declarar = conex.createStatement();
+
+            String xsql = "SELECT nom_prod from inventario";
+            ResultSet rs = declarar.executeQuery(xsql);
+            while (rs.next()) {
+
+                cbxProducto.addItem(rs.getString("nom_prod"));
+            }
 
         } catch (SQLException ex) {
             System.out.println("Error en la conexion...");
         }
-     }
- public void llenarComboProveedor(){
-          try {
-          
-        String xurl="jdbc:mysql://localhost/bdcasahogar";
-        String xusu="root";
-        String xpas="";
-        
-        Connection conex= DriverManager.getConnection(xurl,xusu,xpas);
-        Statement declarar=conex.createStatement();
-        String xsql="SELECT cod_prov,nom_prov from proveedores";
-        ResultSet rs=declarar.executeQuery(xsql);
-        while(rs.next()){            
-        cbxProovedor.addItem(rs.getString("cod_prov")+" - "+rs.getString("nom_prov"));        
-        }
+    }
+
+    public void llenarComboProveedor() {
+        try {
+
+            String xurl = "jdbc:mysql://localhost/bdcasahogar";
+            String xusu = "root";
+            String xpas = "";
+
+            Connection conex = DriverManager.getConnection(xurl, xusu, xpas);
+            Statement declarar = conex.createStatement();
+            String xsql = "SELECT cod_prov,nom_prov from proveedores";
+            ResultSet rs = declarar.executeQuery(xsql);
+            while (rs.next()) {
+                cbxProovedor.addItem(rs.getString("cod_prov") + " - " + rs.getString("nom_prov"));
+            }
 
         } catch (SQLException ex) {
             System.out.println("Error en la conexion...");
         }
-     }
-    
-    
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -261,165 +262,194 @@ public class Abastecimiento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
-     
+
     }//GEN-LAST:event_txtCantidadActionPerformed
 
     private void cbxProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProductoActionPerformed
 
-        switch(cbxProducto.getSelectedIndex()){
-            case 0:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\");break;
-            case 1:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\cama2.jpg");break;
-            case 2:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\ropero.jpg");break;
-            case 3:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\silla.jpg");break;
-            case 4:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\escritorio.jpg");break;
-            case 5:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\comoda_1.png");break;
-            case 6:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\tocador.jpg");break;
-            case 7:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\sofa.jpg");break;
-            case 8:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\velador.jpg");break;
-            case 9:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\zapatero.jpg");break;
-       }
-       
+        switch (cbxProducto.getSelectedIndex()) {
+            case 0:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\");
+                break;
+            case 1:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\cama2.jpg");
+                break;
+            case 2:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\ropero.jpg");
+                break;
+            case 3:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\silla.jpg");
+                break;
+            case 4:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\escritorio.jpg");
+                break;
+            case 5:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\comoda_1.png");
+                break;
+            case 6:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\tocador.jpg");
+                break;
+            case 7:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\sofa.jpg");
+                break;
+            case 8:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\velador.jpg");
+                break;
+            case 9:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\zapatero.jpg");
+                break;
+        }
+
     }//GEN-LAST:event_cbxProductoActionPerformed
 
     private void btAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarProductoActionPerformed
-         try {
-          
-        String xurl="jdbc:mysql://localhost/bdcasahogar";
-        String xusu="root";
-        String xpas="";
-        String orden[]=new String[5];
-        Connection conex= DriverManager.getConnection(xurl,xusu,xpas);
-       
-        Statement declarar=conex.createStatement();
-        
-        String xsql="SELECT * from inventario where nom_prod='"+cbxProducto.getSelectedItem().toString()+"'";
-        ResultSet rs=declarar.executeQuery(xsql);        
-        while(rs.next()){
-        orden[0]=rs.getString("cod_prod");
-        orden[1]=rs.getString("nom_prod");
-            switch (orden[1]) {
-                case "Cama 2 plazas":
-                    orden[2]=String.valueOf(tbPrecios.getValueAt(0, 1));break;
-                case "Ropero":
-                    orden[2]=String.valueOf(tbPrecios.getValueAt(1, 1));break;
-                case "Sillas":
-                    orden[2]=String.valueOf(tbPrecios.getValueAt(2, 1));break;
-                case "Escritorio":
-                    orden[2]=String.valueOf(tbPrecios.getValueAt(3, 1));break;
-                case "Comoda":
-                    orden[2]=String.valueOf(tbPrecios.getValueAt(4, 1));break;
-                case "Tocador":
-                    orden[2]=String.valueOf(tbPrecios.getValueAt(5, 1));break;
-                case "Sofa":
-                    orden[2]=String.valueOf(tbPrecios.getValueAt(6, 1));break;
-                case "Velador":
-                    orden[2]=String.valueOf(tbPrecios.getValueAt(7, 1));break;
-                case "Zapatero":
-                    orden[2]=String.valueOf(tbPrecios.getValueAt(8, 1));break;
-                default:
-                    throw new AssertionError();
+        try {
+
+            String xurl = "jdbc:mysql://localhost/bdcasahogar";
+            String xusu = "root";
+            String xpas = "";
+            String orden[] = new String[5];
+            Connection conex = DriverManager.getConnection(xurl, xusu, xpas);
+
+            Statement declarar = conex.createStatement();
+
+            String xsql = "SELECT * from inventario where nom_prod='" + cbxProducto.getSelectedItem().toString() + "'";
+            ResultSet rs = declarar.executeQuery(xsql);
+            while (rs.next()) {
+                orden[0] = rs.getString("cod_prod");
+                orden[1] = rs.getString("nom_prod");
+                switch (orden[1]) {
+                    case "Cama 2 plazas":
+                        orden[2] = String.valueOf(tbPrecios.getValueAt(0, 1));
+                        break;
+                    case "Ropero":
+                        orden[2] = String.valueOf(tbPrecios.getValueAt(1, 1));
+                        break;
+                    case "Sillas":
+                        orden[2] = String.valueOf(tbPrecios.getValueAt(2, 1));
+                        break;
+                    case "Escritorio":
+                        orden[2] = String.valueOf(tbPrecios.getValueAt(3, 1));
+                        break;
+                    case "Comoda":
+                        orden[2] = String.valueOf(tbPrecios.getValueAt(4, 1));
+                        break;
+                    case "Tocador":
+                        orden[2] = String.valueOf(tbPrecios.getValueAt(5, 1));
+                        break;
+                    case "Sofa":
+                        orden[2] = String.valueOf(tbPrecios.getValueAt(6, 1));
+                        break;
+                    case "Velador":
+                        orden[2] = String.valueOf(tbPrecios.getValueAt(7, 1));
+                        break;
+                    case "Zapatero":
+                        orden[2] = String.valueOf(tbPrecios.getValueAt(8, 1));
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
+
+                orden[3] = txtCantidad.getText();
+                orden[4] = String.valueOf(Double.parseDouble(orden[3]) * Double.parseDouble(orden[2]));
+                modelo2.addRow(orden);
             }
-        
-        orden[3]=txtCantidad.getText();
-        orden[4]=String.valueOf(Double.parseDouble(orden[3])*Double.parseDouble(orden[2]));
-        modelo2.addRow(orden);      
-        }
-        sumar(Integer.parseInt(orden[3]), orden[1]);
-        inve.cargarRegistroAlaTabla();
+            sumar(Integer.parseInt(orden[3]), orden[1]);
+            inve.cargarRegistroAlaTabla();
         } catch (SQLException ex) {
             System.out.println("Error en la conexion...");
         }
-        
+
     }//GEN-LAST:event_btAgregarProductoActionPerformed
 
     private void btMostrarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMostrarInventarioActionPerformed
 
-      inve.setVisible(true);
+        inve.setVisible(true);
     }//GEN-LAST:event_btMostrarInventarioActionPerformed
 
     private void btProcesarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcesarPedidoActionPerformed
-        if(cbxProovedor.getSelectedIndex()>0 && Integer.parseInt(txtCantidad.getText())>0){
-      try {
-        
-        String xurl="jdbc:mysql://localhost/bdcasahogar";
-        String xusu="root";
-        String xpas="";
-        
-        
-        Connection conex= DriverManager.getConnection(xurl,xusu,xpas);
-        Statement declarar=conex.createStatement();      
-        String codigo=cbxProovedor.getSelectedItem().toString().substring(0, 4);
-        int cantidad=0;
-        double total=0;
+        /*if (cbxProovedor.getSelectedIndex() > 0 && Integer.parseInt(txtCantidad.getText()) > 0) {
+            try {
 
-        
+                String xurl = "jdbc:mysql://localhost/bdcasahogar";
+                String xusu = "root";
+                String xpas = "";
 
-        Proveedores prov=new Proveedores(codigo, cbxProovedor.getSelectedItem().toString().substring(7, cbxProovedor.getSelectedItem().toString().length()),cantidad , total);
-        for(int i=0;i<tbPedidos.getRowCount();i++){
-            cantidad=cantidad+Integer.parseInt(tbPedidos.getValueAt(i, 3).toString());
-            total=total+Double.parseDouble(tbPedidos.getValueAt(i, 4).toString());
-            
-        }
-        prov.setCantidad(cantidad);
-        prov.setTotal(total);
+                Connection conex = DriverManager.getConnection(xurl, xusu, xpas);
+                Statement declarar = conex.createStatement();
+                String codigo = cbxProovedor.getSelectedItem().toString().substring(0, 4);
+                int cantidad = 0;
+                double total = 0;
 
-        String xsql2="INSERT INTO registroproveedores values('"+prov.getCodigo()+"','"+prov.getNombreP()
-                +"','"+String.valueOf(prov.getCantidad())+"','"+prov.getTotal()+"')";
-        declarar.execute(xsql2);
-            JOptionPane.showMessageDialog(null, "El proveedor fue registrado");
-            Vista menu=new Vista();
-            menu.setVisible(true);
-            this.dispose();
-        
-        } catch (SQLException ex) {
-            System.out.println("Error en la conexion...");
-        }catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(null, "Llene todos los campos");
-      
-        }
-        }else{
+                Proveedor prov = new Proveedor(codigo, cbxProovedor.getSelectedItem().toString().substring(7, cbxProovedor.getSelectedItem().toString().length()), cantidad, total);
+                for (int i = 0; i < tbPedidos.getRowCount(); i++) {
+                    cantidad = cantidad + Integer.parseInt(tbPedidos.getValueAt(i, 3).toString());
+                    total = total + Double.parseDouble(tbPedidos.getValueAt(i, 4).toString());
+
+                }
+                prov.setCantidad(cantidad);
+                prov.setTotal(total);
+
+                String xsql2 = "INSERT INTO registroproveedores values('" + prov.getCodigo() + "','" + prov.getNombreP()
+                        + "','" + String.valueOf(prov.getCantidad()) + "','" + prov.getTotal() + "')";
+                declarar.execute(xsql2);
+                JOptionPane.showMessageDialog(null, "El proveedor fue registrado");
+                Vista menu = new Vista();
+                menu.setVisible(true);
+                this.dispose();
+
+            } catch (SQLException ex) {
+                System.out.println("Error en la conexion...");
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Llene todos los campos");
+
+            }
+        } else {
             JOptionPane.showMessageDialog(null, "Ingrese un proveedor valido");
-        }
+        }*/
     }//GEN-LAST:event_btProcesarPedidoActionPerformed
 
     private void cbxProovedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProovedorActionPerformed
-      switch(cbxProovedor.getSelectedIndex()){
-          case 1: 
-              tbPrecios.setValueAt(200, 0, 1);
-              tbPrecios.setValueAt(100, 1, 1);
-              tbPrecios.setValueAt(10, 2, 1);
-              tbPrecios.setValueAt(150, 3, 1);
-              tbPrecios.setValueAt(120, 4, 1);
-              tbPrecios.setValueAt(80, 5, 1);
-              tbPrecios.setValueAt(50, 6, 1);
-              tbPrecios.setValueAt(70, 7, 1);
-              tbPrecios.setValueAt(30, 8, 1);break;
-          case 2: 
-              tbPrecios.setValueAt(250, 0, 1);
-              tbPrecios.setValueAt(130, 1, 1);
-              tbPrecios.setValueAt(25, 2, 1);
-              tbPrecios.setValueAt(165, 3, 1);
-              tbPrecios.setValueAt(125, 4, 1);
-              tbPrecios.setValueAt(90, 5, 1);
-              tbPrecios.setValueAt(60, 6, 1);
-              tbPrecios.setValueAt(75, 7, 1);
-              tbPrecios.setValueAt(45, 8, 1);break;
-         case 3: 
-              tbPrecios.setValueAt(260, 0, 1);
-              tbPrecios.setValueAt(120, 1, 1);
-              tbPrecios.setValueAt(30, 2, 1);
-              tbPrecios.setValueAt(130, 3, 1);
-              tbPrecios.setValueAt(100, 4, 1);
-              tbPrecios.setValueAt(50, 5, 1);
-              tbPrecios.setValueAt(80, 6, 1);
-              tbPrecios.setValueAt(60, 7, 1);
-              tbPrecios.setValueAt(30, 8, 1);break;
-      }
-      cbxProovedor.setEnabled(false);
+        switch (cbxProovedor.getSelectedIndex()) {
+            case 1:
+                tbPrecios.setValueAt(200, 0, 1);
+                tbPrecios.setValueAt(100, 1, 1);
+                tbPrecios.setValueAt(10, 2, 1);
+                tbPrecios.setValueAt(150, 3, 1);
+                tbPrecios.setValueAt(120, 4, 1);
+                tbPrecios.setValueAt(80, 5, 1);
+                tbPrecios.setValueAt(50, 6, 1);
+                tbPrecios.setValueAt(70, 7, 1);
+                tbPrecios.setValueAt(30, 8, 1);
+                break;
+            case 2:
+                tbPrecios.setValueAt(250, 0, 1);
+                tbPrecios.setValueAt(130, 1, 1);
+                tbPrecios.setValueAt(25, 2, 1);
+                tbPrecios.setValueAt(165, 3, 1);
+                tbPrecios.setValueAt(125, 4, 1);
+                tbPrecios.setValueAt(90, 5, 1);
+                tbPrecios.setValueAt(60, 6, 1);
+                tbPrecios.setValueAt(75, 7, 1);
+                tbPrecios.setValueAt(45, 8, 1);
+                break;
+            case 3:
+                tbPrecios.setValueAt(260, 0, 1);
+                tbPrecios.setValueAt(120, 1, 1);
+                tbPrecios.setValueAt(30, 2, 1);
+                tbPrecios.setValueAt(130, 3, 1);
+                tbPrecios.setValueAt(100, 4, 1);
+                tbPrecios.setValueAt(50, 5, 1);
+                tbPrecios.setValueAt(80, 6, 1);
+                tbPrecios.setValueAt(60, 7, 1);
+                tbPrecios.setValueAt(30, 8, 1);
+                break;
+        }
+        cbxProovedor.setEnabled(false);
     }//GEN-LAST:event_cbxProovedorActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Vista menu=new Vista();
+        Vista menu = new Vista();
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

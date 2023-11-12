@@ -1,56 +1,43 @@
-
 package IGU;
 
-
-
-
+import Clases.Articulo;
+import ModeloDAO.ArticuloDAO;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
-
+import java.util.List;
 
 public class InventarioIGU extends javax.swing.JFrame {
 
-    
-    
     DefaultTableModel tabla;
+    ArticuloDAO artdao = new ArticuloDAO();
 
-
-    public InventarioIGU(){
-        initComponents(); 
-        this.setLocationRelativeTo(null);   
+    public InventarioIGU() {
+        initComponents();
+        this.setLocationRelativeTo(null);
         cargarRegistroAlaTabla();
-        
+
     }
 
- public void cargarRegistroAlaTabla(){
-       String[] titulo={"Codigo","Nombre del Producto","Precio Unitario","Cantidad en Stock"};
-       tabla=new DefaultTableModel(null,titulo);
-       String[] fila=new String[4];
-        try {
-          //conectarse a la base de datos
-        String xurl="jdbc:mysql://localhost/muebleria";
-        String xusu="root";
-        String xpas="";
-        
-        Connection conex= DriverManager.getConnection(xurl,xusu,xpas);
-        //crear la consulta
-        Statement declarar=conex.createStatement();
-        //mostrar la consulta
-        String xsql="SELECT art_cod, art_nom, art_pre, art_stk FROM articulos";
-        ResultSet rs=declarar.executeQuery(xsql);
-        while(rs.next()){
-           fila[0]=rs.getString("art_cod");
-           fila[1]=rs.getString("art_nom");
-           fila[2]=rs.getString("art_pre");
-           fila[3]=rs.getString("art_stk");
-           tabla.addRow(fila);
+    public void cargarRegistroAlaTabla() {
+
+        //Cabecera de la tabla
+        String[] titulo = {"Codigo", "Nombre del Producto", "Precio Unitario", "Cantidad en Stock"};
+        tabla = new DefaultTableModel(null, titulo);
+        String[] fila = new String[4];
+
+        List<Articulo> lista = artdao.Listado();
+
+        for (Articulo x : lista) {
+            fila[0] = x.getArt_cod();
+            fila[1] = x.getArt_nom();
+            fila[2] = Double.toString(x.getArt_pre());
+            fila[3] = Integer.toString(x.getArt_stk());
+            tabla.addRow(fila);
+            tbInventario.setModel(tabla);
         }
-        tbInventario.setModel(tabla);
-        } catch (SQLException ex) {
-            System.out.println("Error en la conexion...");
-        }
-       
+
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -199,25 +186,25 @@ public class InventarioIGU extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Abastecimiento pro=new Abastecimiento();
+        Abastecimiento pro = new Abastecimiento();
         pro.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        Pedidos pedido=new Pedidos();
+        Pedidos pedido = new Pedidos();
         pedido.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        RegistroProveedores reg=new RegistroProveedores();
+        RegistroProveedores reg = new RegistroProveedores();
         reg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        Vista menu=new Vista();
+        Vista menu = new Vista();
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -227,15 +214,15 @@ public class InventarioIGU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        InventarioIGU inve=new InventarioIGU();
+        InventarioIGU inve = new InventarioIGU();
         inve.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-    RegistroFacturas fac=new RegistroFacturas();
-     fac.setVisible(true);
-     this.dispose();
+        RegistroFacturas fac = new RegistroFacturas();
+        fac.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
