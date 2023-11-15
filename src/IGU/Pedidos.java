@@ -1,11 +1,11 @@
-
-
 package IGU;
-
 
 import static IGU.FacturaIGU.txtIGV;
 import static IGU.FacturaIGU.txtSubtotal;
 import static IGU.FacturaIGU.txtTotal;
+import ModeloDAO.ArticuloDAO;
+import Clases.*;
+import java.util.*;
 
 import java.awt.Image;
 import javax.swing.Icon;
@@ -16,68 +16,65 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 
 public class Pedidos extends javax.swing.JFrame {
+    
+    //Dao articulos
+    ArticuloDAO articulodao = new ArticuloDAO();
 
-    DefaultTableModel modelo2=new DefaultTableModel();
-    InventarioIGU inve=new InventarioIGU();
+    //Tabla
+    DefaultTableModel modelo2 = new DefaultTableModel();
+    
+    
+    InventarioIGU inve = new InventarioIGU();
     private ImageIcon imagen;
     private Icon icono;
-    FacturaIGU newframe=new FacturaIGU();
+    FacturaIGU newframe = new FacturaIGU();
+
     public Pedidos() {
         initComponents();
-        this.setLocationRelativeTo(null);  
+        this.setLocationRelativeTo(null);
         tbPedidos.setModel(modelo2);
-        String[] cabecera={"Codigo","Nombre Producto","Precio Unitario","Cantidad"};
-        modelo2.setColumnIdentifiers(cabecera);   
+        String[] cabecera = {"Codigo", "Nombre Producto", "Precio Unitario", "Cantidad"};
+        modelo2.setColumnIdentifiers(cabecera);
         llenarCombo();
     }
-    public void mensaje(String mensaje){
+
+    public void mensaje(String mensaje) {
         JOptionPane.showMessageDialog(null, mensaje);
     }
-     private  void pintarImagen(JLabel lbl, String ruta){
-        this.imagen= new ImageIcon(ruta);
-        this.icono= new ImageIcon(this.imagen.getImage().getScaledInstance(lbl.getWidth(), lbl.getHeight(),Image.SCALE_DEFAULT));
+
+    private void pintarImagen(JLabel lbl, String ruta) {
+        this.imagen = new ImageIcon(ruta);
+        this.icono = new ImageIcon(this.imagen.getImage().getScaledInstance(lbl.getWidth(), lbl.getHeight(), Image.SCALE_DEFAULT));
         lbl.setIcon(this.icono);
-}
-     public void modificar(int cantidad,String nombre){
-         try{
-        String xurl="jdbc:mysql://localhost/bdcasahogar";
-        String xusu="root";
-        String xpas="";
-        
-        Connection conex= DriverManager.getConnection(xurl,xusu,xpas);
-        //crear la consulta
-        Statement declarar=conex.createStatement();
-        //actualizar un registro
-        String xsql="UPDATE inventario SET stock_prod=stock_prod-"+cantidad+" WHERE nom_prod='"+nombre+"'";
-        declarar.execute(xsql);
-        }catch(SQLException ex){
+    }
+
+    public void modificar(int cantidad, String nombre) {
+        try {
+            String xurl = "jdbc:mysql://localhost/bdcasahogar";
+            String xusu = "root";
+            String xpas = "";
+
+            Connection conex = DriverManager.getConnection(xurl, xusu, xpas);
+            //crear la consulta
+            Statement declarar = conex.createStatement();
+            //actualizar un registro
+            String xsql = "UPDATE inventario SET stock_prod=stock_prod-" + cantidad + " WHERE nom_prod='" + nombre + "'";
+            declarar.execute(xsql);
+        } catch (SQLException ex) {
             System.out.println("Error...Falla en la conexion");
         }
-     }
-     public void llenarCombo(){
-          try {
-          //conectarse a la base de datos
-        String xurl="jdbc:mysql://localhost/bdcasahogar";
-        String xusu="root";
-        String xpas="";
-        
-        Connection conex= DriverManager.getConnection(xurl,xusu,xpas);
-        //crear la consulta
-        Statement declarar=conex.createStatement();
-        //mostrar la consulta
-        String xsql="SELECT nom_prod from inventario";
-        ResultSet rs=declarar.executeQuery(xsql);
-        while(rs.next()){  
-            
-        cbxProducto.addItem(rs.getString("nom_prod"));        
-        }
+    }
 
-        } catch (SQLException ex) {
-            System.out.println("Error en la conexion...");
+    public void llenarCombo() {
+        
+        List<Articulo> listaart = new ArrayList();
+        listaart = articulodao.Listado();
+        
+        for(Articulo x : listaart){
+            cbxProducto.addItem(x.getArt_nom());
         }
-     }
-    
-    
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -202,103 +199,118 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void cbxProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProductoActionPerformed
 
-        switch(cbxProducto.getSelectedIndex()){
-            case 0:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\");break;
-            case 1:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\cama2.jpg");break;
-            case 2:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\ropero.jpg");break;
-            case 3:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\silla.jpg");break;
-            case 4:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\escritorio.jpg");break;
-            case 5:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\comoda_1.png");break;
-            case 6:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\tocador.jpg");break;
-            case 7:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\velador.jpg");break;               
-            case 8:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\zapatero.jpg");break;
-            case 9:pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\sofa.jpg");break;
-                
-       }
-       
+        switch (cbxProducto.getSelectedIndex()) {
+            case 0:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\");
+                break;
+            case 1:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\cama2.jpg");
+                break;
+            case 2:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\ropero.jpg");
+                break;
+            case 3:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\silla.jpg");
+                break;
+            case 4:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\escritorio.jpg");
+                break;
+            case 5:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\comoda_1.png");
+                break;
+            case 6:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\tocador.jpg");
+                break;
+            case 7:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\velador.jpg");
+                break;
+            case 8:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\zapatero.jpg");
+                break;
+            case 9:
+                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\sofa.jpg");
+                break;
+
+        }
+
     }//GEN-LAST:event_cbxProductoActionPerformed
 
     private void btAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarProductoActionPerformed
-        
-        try {
-        if(Integer.parseInt(txtCantidad.getText())>0){
-        String xurl="jdbc:mysql://localhost/bdcasahogar";
-        String xusu="root";
-        String xpas="";
-        
-        Connection conex= DriverManager.getConnection(xurl,xusu,xpas);
-        //crear la consulta
-        Statement declarar=conex.createStatement();
-        //mostrar la consulta
-        String xsql="SELECT * from inventario where nom_prod='"+cbxProducto.getSelectedItem().toString()+"'";
-        ResultSet rs=declarar.executeQuery(xsql);
-        String orden[]=new String[4];
-               
-        while(rs.next()){
-        orden[0]=rs.getString("cod_prod");
-        orden[1]=rs.getString("nom_prod");
-        orden[2]=rs.getString("pre_prod");
-        orden[3]=txtCantidad.getText();
-        modelo2.addRow(orden);
-        }        
-         
-        modificar(Integer.parseInt(txtCantidad.getText()), orden[1]);
-        inve.cargarRegistroAlaTabla();
-        
-        }
-        else{
-              JOptionPane.showMessageDialog(null, "Ingrese una cantidad valida");  
-                }
-        }
-        catch (SQLException ex) {
-            System.out.println("Error en la conexion...");
-        }catch(NumberFormatException ex){
-         JOptionPane.showMessageDialog(null, "Ingrese una cantidad valida");
-     }
-        
-         
 
-        
+        try {
+            if (Integer.parseInt(txtCantidad.getText()) > 0) {
+                String xurl = "jdbc:mysql://localhost/bdcasahogar";
+                String xusu = "root";
+                String xpas = "";
+
+                Connection conex = DriverManager.getConnection(xurl, xusu, xpas);
+                //crear la consulta
+                Statement declarar = conex.createStatement();
+                //mostrar la consulta
+                String xsql = "SELECT * from inventario where nom_prod='" + cbxProducto.getSelectedItem().toString() + "'";
+                ResultSet rs = declarar.executeQuery(xsql);
+                String orden[] = new String[4];
+
+                while (rs.next()) {
+                    orden[0] = rs.getString("cod_prod");
+                    orden[1] = rs.getString("nom_prod");
+                    orden[2] = rs.getString("pre_prod");
+                    orden[3] = txtCantidad.getText();
+                    modelo2.addRow(orden);
+                }
+
+                modificar(Integer.parseInt(txtCantidad.getText()), orden[1]);
+                inve.cargarRegistroAlaTabla();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Ingrese una cantidad valida");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la conexion...");
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Ingrese una cantidad valida");
+        }
+
+
     }//GEN-LAST:event_btAgregarProductoActionPerformed
 
     private void btMostrarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMostrarInventarioActionPerformed
 
-      inve.setVisible(true);
+        inve.setVisible(true);
     }//GEN-LAST:event_btMostrarInventarioActionPerformed
 
     private void btProcesarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcesarPedidoActionPerformed
-     try{
-        
-        if(tbPedidos.getRowCount()>0){
-      String[] datos=new String[5];
-      double totalCompra=0;
-        for (int i = 0; i < modelo2.getRowCount(); i++) {
-            datos[0]=tbPedidos.getValueAt(i, 0).toString();
-            datos[1]=tbPedidos.getValueAt(i, 1).toString();
-            datos[2]=tbPedidos.getValueAt(i, 3).toString();
-            datos[3]=tbPedidos.getValueAt(i, 2).toString();
-            datos[4]=String.valueOf(Double.parseDouble(datos[2])*Double.parseDouble(datos[3]));
-            totalCompra=totalCompra+Double.parseDouble(datos[4]);
-            newframe.modelo.addRow(datos);
+        try {
 
+            if (tbPedidos.getRowCount() > 0) {
+                String[] datos = new String[5];
+                double totalCompra = 0;
+                for (int i = 0; i < modelo2.getRowCount(); i++) {
+                    datos[0] = tbPedidos.getValueAt(i, 0).toString();
+                    datos[1] = tbPedidos.getValueAt(i, 1).toString();
+                    datos[2] = tbPedidos.getValueAt(i, 3).toString();
+                    datos[3] = tbPedidos.getValueAt(i, 2).toString();
+                    datos[4] = String.valueOf(Double.parseDouble(datos[2]) * Double.parseDouble(datos[3]));
+                    totalCompra = totalCompra + Double.parseDouble(datos[4]);
+                    newframe.modelo.addRow(datos);
+
+                }
+                txtSubtotal.setText(String.valueOf(totalCompra));
+                txtIGV.setText(String.valueOf(totalCompra * 0.18));
+                txtTotal.setText(String.valueOf(totalCompra + (totalCompra * 0.18)));
+                newframe.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Productos insuficientes");
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Ingrese una cantidad valida");
         }
-        txtSubtotal.setText(String.valueOf(totalCompra));
-        txtIGV.setText(String.valueOf(totalCompra*0.18));
-        txtTotal.setText(String.valueOf(totalCompra+(totalCompra*0.18)));
-      newframe.setVisible(true);
-      this.dispose();
-      }else{
-          JOptionPane.showMessageDialog(null, "Productos insuficientes");
-      }
-     }
-     catch(NumberFormatException ex){
-         JOptionPane.showMessageDialog(null, "Ingrese una cantidad valida");
-     }
 
     }//GEN-LAST:event_btProcesarPedidoActionPerformed
 
     private void btSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalirActionPerformed
-        Vista menu=new Vista();
+        Vista menu = new Vista();
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btSalirActionPerformed

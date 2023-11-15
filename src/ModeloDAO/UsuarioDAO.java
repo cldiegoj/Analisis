@@ -33,7 +33,7 @@ public class UsuarioDAO {
         }
     }
 
-    public Usuario Login(String usr, String pas) {
+    public boolean Login(String usr, String pas) {
         Usuario p = null;
         Connection cn = MySQLConexion.getConexion();
         String sql = "select cod, usr, pass, cat_cod from usuario where usr=? and pass=? ";
@@ -48,11 +48,12 @@ public class UsuarioDAO {
                 p.setUsr(rs.getString(2));
                 p.setPass(rs.getString(3));
                 p.setCat_cod(rs.getString(4));
+                return true;
             }
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return p;
+        return false;
     }
 }

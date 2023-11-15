@@ -42,35 +42,35 @@ CREATE TABLE `articulos` (
   `art_des` varchar(60) DEFAULT NULL,
   `art_pre` decimal(10,2) DEFAULT NULL,
   `art_stk` int(11) DEFAULT NULL,
-  `pro_cod` char(5) DEFAULT NULL
+  `pro_cod` char(5) NOT NULL
 );
 
 INSERT INTO articulos VALUES('A0001','Prueba','Prueba sql','31.10','20','P0001');
-INSERT INTO articulos VALUES('A0002', 'silla', 'silla de comedor', '25.50', '15', 'P0002');
-INSERT INTO articulos VALUES('A0003', 'sofa', 'sofá de cuero', '499.99', '5', 'P0003');
-INSERT INTO articulos VALUES('A0004', 'escritorio', 'escritorio de roble', '150.20', '10', 'P0001');
-INSERT INTO articulos VALUES('A0005', 'cama', 'cama queen-size', '299.90', '8', 'P0004');
-INSERT INTO articulos VALUES('A0006', 'estante', 'estante de libros', '75.00', '20', 'P0005');
-INSERT INTO articulos VALUES('A0007', 'mesita', 'mesita de noche', '50.30', '12', 'P0006');
-INSERT INTO articulos VALUES('A0008', 'armario', 'armario de pino', '199.50', '18', 'P0007');
-INSERT INTO articulos VALUES('A0009', 'mesa de café', 'mesa de café moderna', '120.99', '25', 'P0008');
-INSERT INTO articulos VALUES('A0010', 'comoda', 'cómoda de nogal', '180.75', '15', 'P0009');
-INSERT INTO articulos VALUES('A0011', 'sillon', 'sillón reclinable', '349.60', '7', 'P0010');
-INSERT INTO articulos VALUES('A0012', 'mesa de centro', 'mesa de centro de vidrio', '89.80', '14', 'P0011');
-INSERT INTO articulos VALUES('A0013', 'perchero', 'perchero de metal', '45.15', '30', 'P0012');
-INSERT INTO articulos VALUES('A0014', 'banco', 'banco para barra de cocina', '65.30', '22', 'P0013');
-INSERT INTO articulos VALUES('A0015', 'lámpara', 'lámpara de pie moderna', '120.90', '18', 'P0014');
-INSERT INTO articulos VALUES('A0016', 'espejo', 'espejo de pared grande', '55.50', '20', 'P0015');
-INSERT INTO articulos VALUES('A0017', 'reloj', 'reloj de pared vintage', '30.25', '25', 'P0016');
-INSERT INTO articulos VALUES('A0018', 'alfombra', 'alfombra de lana', '89.99', '12', 'P0017');
-INSERT INTO articulos VALUES('A0019', 'candelabro', 'candelabro de cristal', '55.75', '15', 'P0018');
-INSERT INTO articulos VALUES('A0020', 'jarrón', 'jarrón de cerámica', '40.50', '20', 'P0019');
-INSERT INTO articulos VALUES('A0021', 'cojines', 'cojines decorativos', '18.75', '30', 'P0020');
-INSERT INTO articulos VALUES('A0022', 'mantel', 'mantel de lino', '22.40', '18', 'P0021');
-INSERT INTO articulos VALUES('A0023', 'cortinas', 'cortinas opacas', '35.90', '10', 'P0022');
-INSERT INTO articulos VALUES('A0024', 'planta artificial', 'planta decorativa', '15.80', '25', 'P0023');
-INSERT INTO articulos VALUES('A0025', 'copas de vino', 'juego de copas de vino', '28.60', '20', 'P0024');
-INSERT INTO articulos VALUES('A0026', 'cubertería', 'set de cubiertos de acero inoxidable', '45.20', '15', 'P0025');
+INSERT INTO articulos VALUES('A0002', 'Silla', 'silla de comedor', '25.50', '15', 'P0002');
+INSERT INTO articulos VALUES('A0003', 'Sofa', 'sofá de cuero', '499.99', '5', 'P0003');
+INSERT INTO articulos VALUES('A0004', 'Escritorio', 'escritorio de roble', '150.20', '10', 'P0001');
+INSERT INTO articulos VALUES('A0005', 'Cama', 'cama queen-size', '299.90', '8', 'P0004');
+INSERT INTO articulos VALUES('A0006', 'Estante', 'estante de libros', '75.00', '20', 'P0005');
+INSERT INTO articulos VALUES('A0007', 'Mesita', 'mesita de noche', '50.30', '12', 'P0006');
+INSERT INTO articulos VALUES('A0008', 'Armario', 'armario de pino', '199.50', '18', 'P0007');
+INSERT INTO articulos VALUES('A0009', 'Mesa de café', 'mesa de café moderna', '120.99', '25', 'P0008');
+INSERT INTO articulos VALUES('A0010', 'Comoda', 'cómoda de nogal', '180.75', '15', 'P0009');
+INSERT INTO articulos VALUES('A0011', 'Sillon', 'sillón reclinable', '349.60', '7', 'P0010');
+INSERT INTO articulos VALUES('A0012', 'Mesa de centro', 'mesa de centro de vidrio', '89.80', '14', 'P0001');
+INSERT INTO articulos VALUES('A0013', 'Perchero', 'perchero de metal', '45.15', '30', 'P0010');
+INSERT INTO articulos VALUES('A0014', 'Banco', 'banco para barra de cocina', '65.30', '22', 'P0003');
+INSERT INTO articulos VALUES('A0015', 'Lámpara', 'lámpara de pie moderna', '120.90', '18', 'P0004');
+INSERT INTO articulos VALUES('A0016', 'Espejo', 'espejo de pared grande', '55.50', '20', 'P0005');
+INSERT INTO articulos VALUES('A0017', 'Reloj', 'reloj de pared vintage', '30.25', '25', 'P0006');
+INSERT INTO articulos VALUES('A0018', 'Alfombra', 'alfombra de lana', '89.99', '12', 'P0010');
+INSERT INTO articulos VALUES('A0019', 'Candelabro', 'candelabro de cristal', '55.75', '15', 'P0010');
+INSERT INTO articulos VALUES('A0020', 'Jarrón', 'jarrón de cerámica', '40.50', '20', 'P0009');
+INSERT INTO articulos VALUES('A0021', 'Cojines', 'cojines decorativos', '18.75', '30', 'P0001');
+INSERT INTO articulos VALUES('A0022', 'Mantel', 'mantel de lino', '22.40', '18', 'P0001');
+INSERT INTO articulos VALUES('A0023', 'Cortinas', 'cortinas opacas', '35.90', '10', 'P0002');
+INSERT INTO articulos VALUES('A0024', 'Planta artificial', 'planta decorativa', '15.80', '25', 'P0010');
+INSERT INTO articulos VALUES('A0025', 'Copas de vino', 'juego de copas de vino', '28.60', '20', 'P0009');
+INSERT INTO articulos VALUES('A0026', 'Cubertería', 'set de cubiertos de acero inoxidable', '45.20', '15', 'P0010');
 
 CREATE TABLE `clientes` (
   `cli_cod` char(5) NOT NULL PRIMARY KEY DEFAULT '',

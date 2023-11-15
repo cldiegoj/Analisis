@@ -1,13 +1,16 @@
-
-
 package IGU;
 
 import Clases.CInicioSesion;
-
+import Clases.Usuario;
+import ModeloDAO.UsuarioDAO;
+import java.awt.Color;
 
 public class InicioSesion extends javax.swing.JFrame {
 
-    CInicioSesion iniciar=new CInicioSesion();
+    UsuarioDAO usuariodao = new UsuarioDAO();
+
+    CInicioSesion iniciar = new CInicioSesion();
+
     public InicioSesion() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -22,6 +25,7 @@ public class InicioSesion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Mensaje = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -36,6 +40,9 @@ public class InicioSesion extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Mensaje.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        getContentPane().add(Mensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 450, -1, -1));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
@@ -125,15 +132,20 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      Vista menu=new Vista();
-      iniciar.ingresar(txtUsuario.getText(), txtContraseña.getText());
-      if(iniciar.correcto==true){
-      menu.setVisible(true);
-      this.dispose();
-      }else{
-      txtUsuario.setText("");
-      txtContraseña.setText("");
-      }
+        Vista menu = new Vista();
+
+        boolean sesion;
+        sesion = usuariodao.Login(txtUsuario.getText(), txtContraseña.getText());
+
+        if (sesion == false) {
+            txtUsuario.setText("");
+            txtContraseña.setText("");
+            Mensaje.setForeground(Color.red);
+            Mensaje.setText("Usuario o contraseña invalida");
+        } else {
+            menu.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -173,6 +185,7 @@ public class InicioSesion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Fondo;
+    private javax.swing.JLabel Mensaje;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

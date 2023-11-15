@@ -4,6 +4,10 @@ import Clases.*;
 import static IGU.FacturaIGU.txtIGV;
 import static IGU.FacturaIGU.txtSubtotal;
 import static IGU.FacturaIGU.txtTotal;
+import ModeloDAO.ArticuloDAO;
+import ModeloDAO.ProveedorDAO;
+import Clases.*;
+import java.util.*;
 
 import java.awt.Image;
 import javax.swing.Icon;
@@ -14,6 +18,9 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 
 public class Abastecimiento extends javax.swing.JFrame {
+
+    ArticuloDAO articulodao = new ArticuloDAO();
+    ProveedorDAO proveedordao = new ProveedorDAO();
 
     DefaultTableModel modelo2 = new DefaultTableModel();
     InventarioIGU inve = new InventarioIGU();
@@ -58,45 +65,22 @@ public class Abastecimiento extends javax.swing.JFrame {
     }
 
     public void llenarCombo() {
-        try {
 
-            String xurl = "jdbc:mysql://localhost/bdcasahogar";
-            String xusu = "root";
-            String xpas = "";
+        List<Articulo> listaart = new ArrayList();
+        listaart = articulodao.Listado();
 
-            Connection conex = DriverManager.getConnection(xurl, xusu, xpas);
-
-            Statement declarar = conex.createStatement();
-
-            String xsql = "SELECT nom_prod from inventario";
-            ResultSet rs = declarar.executeQuery(xsql);
-            while (rs.next()) {
-
-                cbxProducto.addItem(rs.getString("nom_prod"));
-            }
-
-        } catch (SQLException ex) {
-            System.out.println("Error en la conexion...");
+        for (Articulo x : listaart) {
+            cbxProducto.addItem(x.getArt_nom());
         }
     }
 
     public void llenarComboProveedor() {
-        try {
 
-            String xurl = "jdbc:mysql://localhost/bdcasahogar";
-            String xusu = "root";
-            String xpas = "";
+        List<Proveedor> listproveedor = new ArrayList();
+        listproveedor = proveedordao.listado();
 
-            Connection conex = DriverManager.getConnection(xurl, xusu, xpas);
-            Statement declarar = conex.createStatement();
-            String xsql = "SELECT cod_prov,nom_prov from proveedores";
-            ResultSet rs = declarar.executeQuery(xsql);
-            while (rs.next()) {
-                cbxProovedor.addItem(rs.getString("cod_prov") + " - " + rs.getString("nom_prov"));
-            }
-
-        } catch (SQLException ex) {
-            System.out.println("Error en la conexion...");
+        for (Proveedor x : listproveedor) {
+            cbxProovedor.addItem(x.getPro_cod() + " - " + x.getPro_nom());
         }
     }
 
