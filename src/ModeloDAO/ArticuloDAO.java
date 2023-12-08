@@ -40,17 +40,17 @@ public class ArticuloDAO {
         }
         return lista;
     }
-    
-    public List<Articulo> ListaFiltro(String proveedor){
+
+    public List<Articulo> ListaFiltro(String proveedor) {
         Connection cn = MySQLConexion.getConexion();
         String sql = "select a.art_cod, a.art_nom, a.art_des, a.art_pre, a.art_stk, a.pro_cod from articulos a INNER JOIN"
                 + " proveedor p ON a.pro_cod=p.pro_cod WHERE p.pro_nom = ?";
         List<Articulo> lista = new ArrayList();
-        try{
+        try {
             PreparedStatement st = cn.prepareStatement(sql);
             st.setString(1, proveedor);
             ResultSet rs = st.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 Articulo b = new Articulo();
                 b.setArt_cod(rs.getInt(1));
                 b.setArt_nom(rs.getString(2));
@@ -109,5 +109,38 @@ public class ArticuloDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void actualizastock(int cod, int can) {
+        Connection cn = MySQLConexion.getConexion();
+        String sql = "update articulos set art_stk=art_stk - ? where art_cod=?";
+        try {
+            PreparedStatement st = cn.prepareStatement(sql);
+            st.setInt(1, can);
+            st.setInt(2, cod);
+            st.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public boolean haystock(int cantidad, String nombre) {
+        Connection cn = MySQLConexion.getConexion();
+        String sql = "select art_stk from articulos where art_nom = ? ";
+        int stock = 0;
+        try {
+            PreparedStatement st = cn.prepareStatement(sql);
+            st.setString(1, nombre);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                stock = rs.getInt(1);
+            }
+            if (cantidad > stock){
+                return false;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return true;
     }
 }

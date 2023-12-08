@@ -1,6 +1,7 @@
 package IGU;
 
 import Clases.Usuario;
+import ModeloDAO.ClienteDAO;
 import ModeloDAO.UsuarioDAO;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -8,7 +9,7 @@ import javax.swing.JOptionPane;
 public class InicioSesion extends javax.swing.JFrame {
 
     UsuarioDAO usuariodao = new UsuarioDAO();
-
+    ClienteDAO clientedao = new ClienteDAO();
 
     public InicioSesion() {
         initComponents();
@@ -30,8 +31,10 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         txtContraseña = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        Registro = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        Permiso = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -46,7 +49,7 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("ADMINISTRADOR");
+        jLabel1.setText("SUPER NOVA");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 420, -1, -1));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -75,18 +78,18 @@ public class InicioSesion extends javax.swing.JFrame {
         });
         getContentPane().add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 300, 30));
 
-        jButton1.setBackground(new java.awt.Color(187, 122, 68));
-        jButton1.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar-con-llave (1).png"))); // NOI18N
-        jButton1.setText("Iniciar Sesión");
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Registro.setBackground(new java.awt.Color(187, 122, 68));
+        Registro.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        Registro.setForeground(new java.awt.Color(255, 255, 255));
+        Registro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar-con-llave (1).png"))); // NOI18N
+        Registro.setText("Registrarse");
+        Registro.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        Registro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                RegistroActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 180, 50));
+        getContentPane().add(Registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, 170, 50));
 
         jButton2.setBackground(new java.awt.Color(187, 122, 68));
         jButton2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -101,6 +104,27 @@ public class InicioSesion extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 10, 150, 70));
+
+        jButton3.setBackground(new java.awt.Color(187, 122, 68));
+        jButton3.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar-con-llave (1).png"))); // NOI18N
+        jButton3.setText("Iniciar Sesión");
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 180, 50));
+
+        Permiso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Usuario", "Cliente", "Proveedor" }));
+        Permiso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PermisoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Permiso, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 270, 190, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen_Inicio_Sesion.png"))); // NOI18N
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -130,23 +154,50 @@ public class InicioSesion extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Vista menu = new Vista();
+    private void RegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroActionPerformed
+        RegistrarseCliente vista = new RegistrarseCliente();
+        vista.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_RegistroActionPerformed
 
-        boolean sesion;
-        sesion = usuariodao.Login(txtUsuario.getText(), txtContraseña.getText());
+    private void PermisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PermisoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PermisoActionPerformed
 
-        if (sesion == false) {
-            txtUsuario.setText("");
-            txtContraseña.setText("");
-            Mensaje.setForeground(Color.red);
-            Mensaje.setText("Usuario o contraseña invalida");
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        boolean sesionadmin;
+        boolean sesioncliente;
+        sesioncliente = clientedao.Login(txtUsuario.getText(), txtContraseña.getText());
+        sesionadmin = usuariodao.Login(txtUsuario.getText(), txtContraseña.getText());
+        String categoria = Permiso.getSelectedItem().toString();
+
+        if (categoria.equalsIgnoreCase("cliente")) {
+            if (sesioncliente == false) {
+                txtUsuario.setText("");
+                txtContraseña.setText("");
+                Mensaje.setForeground(Color.red);
+                Mensaje.setText("Usuario o contraseña invalida");
+            } else {
+                JOptionPane.showMessageDialog(null, "Sesión iniciada correctamente");
+                MenuCliente menu = new MenuCliente();
+                menu.setVisible(true);
+                this.dispose();
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Sesión iniciada correctamente");
-            menu.setVisible(true);
-            this.dispose();
+            if (sesionadmin == false) {
+                txtUsuario.setText("");
+                txtContraseña.setText("");
+                Mensaje.setForeground(Color.red);
+                Mensaje.setText("Usuario o contraseña invalida");
+            } else {
+                JOptionPane.showMessageDialog(null, "Sesión iniciada correctamente");
+                Vista menu = new Vista();
+                menu.setVisible(true);
+                this.dispose();
+            }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,8 +237,10 @@ public class InicioSesion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Fondo;
     private javax.swing.JLabel Mensaje;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> Permiso;
+    private javax.swing.JButton Registro;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

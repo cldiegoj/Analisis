@@ -3,19 +3,28 @@
  */
 package IGU;
 
+import Clases.Cliente;
 import Clases.Usuario;
+import ModeloDAO.ArticuloDAO;
+import ModeloDAO.ClienteDAO;
+import ModeloDAO.FacturaDAO;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
+
 import java.sql.*;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import util.MySQLConexion;
 
 public class FacturaIGU extends javax.swing.JFrame {
 
+    ClienteDAO clientedao = new ClienteDAO();
     DefaultTableModel modelo = new DefaultTableModel();
     Date fecha = new Date();
-    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/YYYY");
+    SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
 
     public FacturaIGU() {
         initComponents();
@@ -28,8 +37,8 @@ public class FacturaIGU extends javax.swing.JFrame {
         this.llenarnfactura();
         this.llenarcampos();
     }
-    
-    private void llenarnfactura(){
+
+    private void llenarnfactura() {
         Connection cn = MySQLConexion.getConexion();
         String sql = "select fac_num from fac_cabe ORDER BY fac_num desc limit 1";
         int codigo = 0;
@@ -39,7 +48,7 @@ public class FacturaIGU extends javax.swing.JFrame {
             if (rs.next()) {
                 codigo = rs.getInt(1);
             }
-            this.txtCodigo.setText(Integer.toString(codigo));
+            this.txtCodigo.setText(Integer.toString(codigo + 1));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -54,24 +63,27 @@ public class FacturaIGU extends javax.swing.JFrame {
         info[4] = String.valueOf(total);
         modelo.addRow(info);
     }
-    
-    public void llenarcampos(){
+
+    public void llenarcampos() {
         Connection cn = MySQLConexion.getConexion();
-        String sql = "select * from usuario where est = 1";
-        try{
-            Usuario u = new Usuario();
+        String sql = "select * from clientes where cli_est = 1";
+        try {
+            Cliente u = new Cliente();
             PreparedStatement st = cn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                u.setCod(rs.getInt(1));
-                u.setUsr(rs.getString(2));
-                u.setPass(rs.getString(3));
-                u.setEst(rs.getInt(4));
-                u.setCat_cod(rs.getInt(5));
+                u.setCli_cod(rs.getInt(1));
+                u.setCli_nom(rs.getString(2));
+                u.setCli_tel(rs.getInt(3));
+                u.setCli_cor(rs.getString(4));
+                u.setCli_dir(rs.getString(5));
+                u.setCli_usr(rs.getString(6));
+                u.setCli_pas(rs.getString(7));
+                u.setCli_est(rs.getInt(8));
             }
-            txtNombreEmpresa.setText(u.getUsr());
-            txtDireccion.setText(u.getPass());
-            txtRuc.setText(Integer.toString(u.getCat_cod()));
+            txtnombre.setText(u.getCli_nom());
+            txtDireccion.setText(u.getCli_dir());
+            txtCorreo.setText((u.getCli_cor()));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -95,8 +107,8 @@ public class FacturaIGU extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
-        txtNombreEmpresa = new javax.swing.JTextField();
-        txtRuc = new javax.swing.JTextField();
+        txtnombre = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
         txtFecha = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -141,7 +153,7 @@ public class FacturaIGU extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("NOMBRE :");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 165, -1, 38));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 165, 80, 38));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
@@ -157,21 +169,28 @@ public class FacturaIGU extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(51, 51, 51));
         jLabel13.setText("DIRECCIÓN:");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 216, 128, 36));
+
+        txtDireccion.setEditable(false);
+        txtDireccion.setEnabled(false);
         jPanel1.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 218, 510, 35));
 
-        txtNombreEmpresa.addActionListener(new java.awt.event.ActionListener() {
+        txtnombre.setEditable(false);
+        txtnombre.setEnabled(false);
+        txtnombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreEmpresaActionPerformed(evt);
+                txtnombreActionPerformed(evt);
             }
         });
-        jPanel1.add(txtNombreEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 510, 38));
+        jPanel1.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 510, 38));
 
-        txtRuc.addActionListener(new java.awt.event.ActionListener() {
+        txtCorreo.setEditable(false);
+        txtCorreo.setEnabled(false);
+        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRucActionPerformed(evt);
+                txtCorreoActionPerformed(evt);
             }
         });
-        jPanel1.add(txtRuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 218, 35));
+        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 218, 35));
 
         txtFecha.setEditable(false);
         txtFecha.setEnabled(false);
@@ -242,7 +261,7 @@ public class FacturaIGU extends javax.swing.JFrame {
         btGuardar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Guardar.png"))); // NOI18N
-        btGuardar.setText("  Guardar");
+        btGuardar.setText("Confirmar");
         btGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGuardarActionPerformed(evt);
@@ -252,7 +271,7 @@ public class FacturaIGU extends javax.swing.JFrame {
 
         btRegistro.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ico_end_Registro_Facturas.png"))); // NOI18N
-        btRegistro.setText("Registro de Facturas");
+        btRegistro.setText("Regresar a comprar");
         btRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btRegistroActionPerformed(evt);
@@ -267,7 +286,7 @@ public class FacturaIGU extends javax.swing.JFrame {
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel17.setText("RUC:");
+        jLabel17.setText("CORREO:");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 128, 35));
 
         txtCodigo.setEditable(false);
@@ -287,44 +306,52 @@ public class FacturaIGU extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreEmpresaActionPerformed
+    private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
 
-    }//GEN-LAST:event_txtNombreEmpresaActionPerformed
+    }//GEN-LAST:event_txtnombreActionPerformed
 
-    private void txtRucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRucActionPerformed
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtRucActionPerformed
+    }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
+
+        FacturaDAO facturadao = new FacturaDAO();
+        ArticuloDAO articulodao = new ArticuloDAO();
+
         try {
-            //conectarse a la base de datos
-            Connection cn = MySQLConexion.getConexion();
-            //crear la consulta
-            String sql = "INSERT INTO ";
-            PreparedStatement st = cn.prepareStatement(sql);
-            //mostrar la consulta
-            st.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null, "El cliente fue registrado");
+            //INSERTAR FACTURA CABECERA
+            int codigofac = Integer.parseInt(txtCodigo.getText());
+            int codigocliente = clientedao.BuscaCliente(txtnombre.getText());
+            facturadao.fac_cabe(codigofac, txtFecha.getText(), codigocliente);
+
+            //INSERTAR FACTURA DETALLE
+            int filas = tbFactura.getRowCount();
+            for (int i = 0; i < filas; i++) {
+                Object codigoart = tbFactura.getValueAt(i, 0);
+                Object cantidadart = tbFactura.getValueAt(i, 2);
+                facturadao.fac_deta(codigofac, Integer.parseInt(codigoart.toString()), Integer.parseInt(cantidadart.toString()));
+                articulodao.actualizastock(Integer.parseInt(codigoart.toString()), Integer.parseInt(cantidadart.toString()));
+            }
+            
             Final menu = new Final();
             this.dispose();
             menu.setVisible(true);
 
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al registrar la factura");
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Ingrese todos los datos");
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
     }//GEN-LAST:event_btGuardarActionPerformed
-
-    private void btRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroActionPerformed
-        RegistroFacturas mostrar = new RegistroFacturas();
-        mostrar.setVisible(true);
-    }//GEN-LAST:event_btRegistroActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void btRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroActionPerformed
+        Pedidos mostrar = new Pedidos();
+        this.dispose();
+        mostrar.setVisible(true);
+    }//GEN-LAST:event_btRegistroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -391,13 +418,13 @@ public class FacturaIGU extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tbFactura;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtFecha;
     public static javax.swing.JLabel txtIGV;
-    private javax.swing.JTextField txtNombreEmpresa;
-    private javax.swing.JTextField txtRuc;
     public static javax.swing.JLabel txtSubtotal;
     public static javax.swing.JLabel txtTotal;
+    private javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables
 
     private String String(int cantidad) {

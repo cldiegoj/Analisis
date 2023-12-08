@@ -70,31 +70,35 @@ INSERT INTO articulos VALUES(null, 'Cubertería', 'set de cubiertos de acero ino
 CREATE TABLE `clientes` (
   `cli_cod` int PRIMARY KEY AUTO_INCREMENT, 
   `cli_nom` varchar(35) DEFAULT NULL,
-  `cli_tel` char(8) DEFAULT NULL,
+  `cli_tel` int(9) DEFAULT NULL,
   `cli_cor` varchar(30) DEFAULT NULL,
-  `cli_dir` varchar(30) DEFAULT NULL
+  `cli_dir` varchar(30) DEFAULT NULL,
+  `cli_usr` varchar(30) NOT NULL,
+  `cli_pas` varchar(30) NOT NULL,
+  `cli_est` int
 );
 
-INSERT INTO clientes VALUES (null,'Aaron','960182123','aaronfijas@hotmail.com','Av. Fijas');
-INSERT INTO clientes VALUES (null, 'Beatriz', '987654321', 'beatriz@email.com', 'Calle Principal');
-INSERT INTO clientes VALUES (null, 'Carlos', '912345678', 'carlos@gmail.com', 'Avenida Central');
-INSERT INTO clientes VALUES (null, 'Daniela', '934567890', 'daniela@yahoo.com', 'Calle de la Rosa');
-INSERT INTO clientes VALUES (null, 'Eduardo', '923456789', 'eduardo@email.com', 'Paseo del Sol');
-INSERT INTO clientes VALUES (null, 'Fernanda', '945678901', 'fernanda@gmail.com', 'Callejón de Flores');
-INSERT INTO clientes VALUES (null, 'Gabriel', '978901234', 'gabriel@hotmail.com', 'Avenida del Bosque');
-INSERT INTO clientes VALUES (null, 'Hilda', '965432189', 'hilda@yahoo.com', 'Calle del Mar');
-INSERT INTO clientes VALUES (null, 'Ignacio', '989012345', 'ignacio@email.com', 'Avenida de las Montañas');
-INSERT INTO clientes VALUES (null, 'Jasmine', '911223344', 'jasmine@gmail.com', 'Calle del Arcoiris');
-INSERT INTO clientes VALUES (null, 'Kurt', '956783412', 'kurt@email.com', 'Paseo de las Estrellas');
-INSERT INTO clientes VALUES (null, 'Lorena', '977894561', 'lorena@hotmail.com', 'Calle de los Sueños');
-INSERT INTO clientes VALUES (null, 'Miguel', '934561278', 'miguel@yahoo.com', 'Avenida de la Luna');
-INSERT INTO clientes VALUES (null, 'Natalia', '988765432', 'natalia@email.com', 'Calle de los Recuerdos');
-INSERT INTO clientes VALUES (null, 'Oscar', '923487654', 'oscar@gmail.com', 'Avenida de los Sueños');
-INSERT INTO clientes VALUES (null, 'Paola', '911122334', 'paola@hotmail.com', 'Calle de las Flores');
-INSERT INTO clientes VALUES (null, 'Quentin', '955566677', 'quentin@email.com', 'Avenida de la Libertad');
-INSERT INTO clientes VALUES (null, 'Rosa', '977788899', 'rosa@yahoo.com', 'Calle de la Esperanza');
-INSERT INTO clientes VALUES (null, 'Santiago', '966677788', 'santiago@email.com', 'Avenida de los Ángeles');
-INSERT INTO clientes VALUES (null, 'Teresa', '922334455', 'teresa@gmail.com', 'Calle de las Mariposas');
+INSERT INTO clientes VALUES (null,'Aaron','960182123','aaronfijas@hotmail.com','Av. Fijas','aaron1','pas123',0);
+INSERT INTO clientes VALUES (null, 'Beatriz', '987654321', 'beatriz@email.com', 'Calle Principal','beat31','pas12',0);
+INSERT INTO clientes VALUES (null, 'Carlos', '912345678', 'carlos@gmail.com', 'Avenida Central','car91','pas556',0);
+INSERT INTO clientes VALUES (null, 'Daniela', '934567890', 'daniela@yahoo.com', 'Calle de la Rosa','dan1xd','pas999',0);
+INSERT INTO clientes VALUES (null, 'Eduardo', '923456789', 'eduardo@email.com', 'Paseo del Sol','eduf','wor12',0);
+INSERT INTO clientes VALUES (null, 'Fernanda', '945678901', 'fernanda@gmail.com', 'Callejón de Flores','fer22','llor1',0);
+INSERT INTO clientes VALUES (null, 'Gabriel', '978901234', 'gabriel@hotmail.com', 'Avenida del Bosque','gab22','man22',0);
+INSERT INTO clientes VALUES (null, 'Hilda', '965432189', 'hilda@yahoo.com', 'Calle del Mar','hild69','lol123',0);
+INSERT INTO clientes VALUES (null, 'Ignacio', '989012345', 'ignacio@email.com', 'Avenida de las Montañas','igna','pass444',0);
+INSERT INTO clientes VALUES (null, 'Jasmine', '911223344', 'jasmine@gmail.com', 'Calle del Arcoiris','pp202','aisdji2',0);
+INSERT INTO clientes VALUES (null, 'Kurt', '956783412', 'kurt@email.com', 'Paseo de las Estrellas','kurt14u9','oqwioe',0);
+INSERT INTO clientes VALUES (null, 'Lorena', '977894561', 'lorena@hotmail.com', 'Calle de los Sueños','lor921','lsdjop2',0);
+INSERT INTO clientes VALUES (null, 'Miguel', '934561278', 'miguel@yahoo.com', 'Avenida de la Luna','migu0582','ñkjsapias',0);
+INSERT INTO clientes VALUES (null, 'Natalia', '988765432', 'natalia@email.com', 'Calle de los Recuerdos','nat292','ppasduq2',0);
+INSERT INTO clientes VALUES (null, 'Oscar', '923487654', 'oscar@gmail.com', 'Avenida de los Sueños','osc22892','isisiwq',0);
+INSERT INTO clientes VALUES (null, 'Paola', '911122334', 'paola@hotmail.com', 'Calle de las Flores','pao9u8','iojdoi',0);
+INSERT INTO clientes VALUES (null, 'Quentin', '955566677', 'quentin@email.com', 'Avenida de la Libertad','queenxd','jqhwjdw',0);
+INSERT INTO clientes VALUES (null, 'Rosa', '977788899', 'rosa@yahoo.com', 'Calle de la Esperanza','rosa29','2910sao',0);
+INSERT INTO clientes VALUES (null, 'Santiago', '966677788', 'santiago@email.com', 'Avenida de los Ángeles','saned','99292',0);
+INSERT INTO clientes VALUES (null, 'Teresa', '922334455', 'teresa@gmail.com', 'Calle de las Mariposas','tere9099','oksdjw2',0);
+INSERT INTO clientes VALUES (null, 'Diego', '966089151', 'djcornejoli@hotmail.com' , 'Domingo Nieto' , 'cldiegoj', '123', 0);
 
 CREATE TABLE `fac_cabe` (
   `fac_num` int PRIMARY KEY AUTO_INCREMENT,
@@ -104,8 +108,8 @@ CREATE TABLE `fac_cabe` (
 );
 
 
-INSERT INTO `fac_cabe` VALUES (null,'2023-12-1',1,1);
-INSERT INTO `fac_cabe` VALUES (null,'2023-10-2',1,1);
+INSERT INTO `fac_cabe` VALUES (1,'2023-12-1',1,1);
+INSERT INTO `fac_cabe` VALUES (2,'2023-10-2',1,1);
 
 CREATE TABLE `fac_deta` (
   `fac_num` int ,

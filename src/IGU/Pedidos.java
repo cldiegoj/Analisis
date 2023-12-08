@@ -49,15 +49,7 @@ public class Pedidos extends javax.swing.JFrame {
     }
 
     public void modificar(int cantidad, String nombre) {
-        try {
 
-            Connection cn = MySQLConexion.getConexion();
-            String sql = "UPDATE articulos SET art_stk = art_stk - " + cantidad + " where art_nom = '" + nombre + "'";
-            PreparedStatement st = cn.prepareStatement(sql);
-            st.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("Error...Falla en la conexion");
-        }
     }
 
     public void llenarCombo() {
@@ -83,7 +75,7 @@ public class Pedidos extends javax.swing.JFrame {
         btProcesarPedido = new javax.swing.JButton();
         btAgregarProducto = new javax.swing.JButton();
         btMostrarInventario = new javax.swing.JButton();
-        lbImagen = new javax.swing.JLabel();
+        Imagen = new javax.swing.JLabel();
         btSalir = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
@@ -160,7 +152,7 @@ public class Pedidos extends javax.swing.JFrame {
         btMostrarInventario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btMostrarInventario.setForeground(new java.awt.Color(255, 255, 255));
         btMostrarInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ico_end_InventarioAlmacen2.png"))); // NOI18N
-        btMostrarInventario.setText(" Mostrar Inventario");
+        btMostrarInventario.setText(" Mostrar Articulos");
         btMostrarInventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btMostrarInventarioActionPerformed(evt);
@@ -168,8 +160,8 @@ public class Pedidos extends javax.swing.JFrame {
         });
         getContentPane().add(btMostrarInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 290, 210, 60));
 
-        lbImagen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        getContentPane().add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 160, 150));
+        Imagen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        getContentPane().add(Imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 160, 150));
 
         btSalir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Salir.png"))); // NOI18N
@@ -194,41 +186,51 @@ public class Pedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCantidadActionPerformed
 
     private void cbxProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProductoActionPerformed
-//        String producto = cbxProducto.getSelectedItem().toString();
-//        Image icon = new ImageIcon(this.getClass().getResource("/"+producto+".jpg")).getImage();
-//        lbImagen.setIcon(icono);
+        String nombre  = cbxProducto.getSelectedItem().toString();
+        cargarimagen(nombre);
     }//GEN-LAST:event_cbxProductoActionPerformed
 
+    public void cargarimagen(String nombre){
+        ImageIcon imagen = new ImageIcon("src/img/" + nombre + ".jpg");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(Imagen.getWidth(), Imagen.getHeight(), Image.SCALE_DEFAULT));
+        Imagen.setIcon(icono);
+        this.repaint();
+    }
+    
     private void btAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarProductoActionPerformed
+        int cantidad = Integer.parseInt(txtCantidad.getText());
+        String nombreproducto = cbxProducto.getSelectedItem().toString();
+        boolean stock = articulodao.haystock(cantidad, nombreproducto);
 
-        try {
-            if (Integer.parseInt(txtCantidad.getText()) > 0) {
-                Connection cn = MySQLConexion.getConexion();
-                String sql = "select * from articulos where art_nom = '" + cbxProducto.getSelectedItem().toString() + "'";
-                PreparedStatement st = cn.prepareStatement(sql);
-                ResultSet rs = st.executeQuery();
-                Object orden[] = new Object[4];
+        if (stock == false) {
+            JOptionPane.showMessageDialog(null, "No hay stock disponible para ese producto");
+        } else {
+            try {
+                if (Integer.parseInt(txtCantidad.getText()) > 0) {
+                    Connection cn = MySQLConexion.getConexion();
+                    String sql = "select * from articulos where art_nom = '" + cbxProducto.getSelectedItem().toString() + "'";
+                    PreparedStatement st = cn.prepareStatement(sql);
+                    ResultSet rs = st.executeQuery();
+                    Object orden[] = new Object[4];
 
-                while (rs.next()) {
-                    orden[0] = rs.getInt("art_cod");
-                    orden[1] = rs.getString("art_nom");
-                    orden[2] = rs.getDouble("art_pre");
-                    orden[3] = txtCantidad.getText();
-                    modelo2.addRow(orden);
+                    while (rs.next()) {
+                        orden[0] = rs.getInt("art_cod");
+                        orden[1] = rs.getString("art_nom");
+                        orden[2] = rs.getDouble("art_pre");
+                        orden[3] = txtCantidad.getText();
+                        modelo2.addRow(orden);
+                    }
+                    inve.cargarRegistroAlaTabla();
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ingrese una cantidad valida");
                 }
-
-                modificar(Integer.parseInt(txtCantidad.getText()), orden[1].toString());
-                inve.cargarRegistroAlaTabla();
-
-            } else {
+            } catch (SQLException ex) {
+                System.out.println("Error en la conexion...");
+            } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Ingrese una cantidad valida");
             }
-        } catch (SQLException ex) {
-            System.out.println("Error en la conexion...");
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Ingrese una cantidad valida");
         }
-
 
     }//GEN-LAST:event_btAgregarProductoActionPerformed
 
@@ -251,18 +253,17 @@ public class Pedidos extends javax.swing.JFrame {
                     datos[2] = tbPedidos.getValueAt(i, 3).toString();
                     //Cantidad
                     datos[3] = tbPedidos.getValueAt(i, 2).toString();
-                    
+
                     //Calcula 
                     datos[4] = String.valueOf(Double.parseDouble(datos[2]) * Double.parseDouble(datos[3]));
-                    
-                    
+
                     totalCompra = totalCompra + Double.parseDouble(datos[4]);
                     newframe.modelo.addRow(datos);
 
                 }
                 //Subtotal
                 txtSubtotal.setText(String.valueOf(totalCompra));
-               //IGV 
+                //IGV 
                 txtIGV.setText(String.valueOf(totalCompra * 0.18));
                 //Total
                 txtTotal.setText(String.valueOf(totalCompra + (totalCompra * 0.18)));
@@ -278,7 +279,7 @@ public class Pedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_btProcesarPedidoActionPerformed
 
     private void btSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalirActionPerformed
-        Vista menu = new Vista();
+        MenuCliente menu = new MenuCliente();
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btSalirActionPerformed
@@ -319,6 +320,7 @@ public class Pedidos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Imagen;
     private javax.swing.JButton btAgregarProducto;
     private javax.swing.JButton btMostrarInventario;
     private javax.swing.JButton btProcesarPedido;
@@ -328,7 +330,6 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbImagen;
     private javax.swing.JTable tbPedidos;
     private javax.swing.JTextField txtCantidad;
     // End of variables declaration//GEN-END:variables
