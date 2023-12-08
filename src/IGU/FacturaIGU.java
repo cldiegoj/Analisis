@@ -3,46 +3,55 @@
  */
 package IGU;
 
-
-
-
-import Clases.Factura;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 import javax.swing.JOptionPane;
-
+import util.MySQLConexion;
 
 public class FacturaIGU extends javax.swing.JFrame {
 
+    DefaultTableModel modelo = new DefaultTableModel();
+    Date fecha = new Date();
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/YYYY");
 
-    DefaultTableModel modelo=new DefaultTableModel();
-    Date fecha=new Date();
-    SimpleDateFormat formato=new SimpleDateFormat("dd/MM/YYYY");
     public FacturaIGU() {
         initComponents();
-        this.setLocationRelativeTo(null);      
-        String[] titulo=new String[]{"Codigo","Nombre Producto","Cantidad","Precio Unitario","Total"};
+        this.setLocationRelativeTo(null);
+        String[] titulo = new String[]{"Codigo", "Nombre Producto", "Cantidad", "Precio Unitario", "Total"};
         modelo.setColumnIdentifiers(titulo);
         this.tbFactura.setModel(modelo);
         txtFecha.setText(formato.format(fecha));
         this.setLocationRelativeTo(null);
-
-        
+        this.llenarnfactura();
     }
     
-    public void colocaDatos(String codigo,String nombre,int cantidad,double precio,double total){
-        String[] info=new String[5];
-        info[0]=codigo;
-        info[1]=nombre;
-        info[2]=String.valueOf(cantidad);
-        info[3]=String.valueOf(precio);
-        info[4]=String.valueOf(total);
-        modelo.addRow(info);
+    private void llenarnfactura(){
+        Connection cn = MySQLConexion.getConexion();
+        String sql = "select fac_num from fac_cabe ORDER BY fac_num desc limit 1";
+        int codigo = 0;
+        try {
+            PreparedStatement st = cn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                codigo = rs.getInt(1);
+            }
+            this.txtCodigo.setText(Integer.toString(codigo));
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-    
- 
+    }
+
+    public void colocaDatos(String codigo, String nombre, int cantidad, double precio, double total) {
+        String[] info = new String[5];
+        info[0] = codigo;
+        info[1] = nombre;
+        info[2] = String.valueOf(cantidad);
+        info[3] = String.valueOf(precio);
+        info[4] = String.valueOf(total);
+        modelo.addRow(info);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -96,7 +105,7 @@ public class FacturaIGU extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setText("CASA HOGAR");
+        jLabel2.setText("SUPER NOVA");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -138,6 +147,9 @@ public class FacturaIGU extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtRuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 218, 35));
+
+        txtFecha.setEditable(false);
+        txtFecha.setEnabled(false);
         jPanel1.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, 218, 34));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
@@ -233,6 +245,8 @@ public class FacturaIGU extends javax.swing.JFrame {
         jLabel17.setText("RUC:");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 128, 35));
 
+        txtCodigo.setEditable(false);
+        txtCodigo.setEnabled(false);
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodigoActionPerformed(evt);
@@ -249,7 +263,7 @@ public class FacturaIGU extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNombreEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreEmpresaActionPerformed
-      
+
     }//GEN-LAST:event_txtNombreEmpresaActionPerformed
 
     private void txtRucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRucActionPerformed
@@ -258,34 +272,28 @@ public class FacturaIGU extends javax.swing.JFrame {
 
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
         try {
-          //conectarse a la base de datos
-        String xurl="jdbc:mysql://localhost/bdcasahogar";
-        String xusu="root";
-        String xpas="";
-        Factura fac=new Factura(txtCodigo.getText(), txtNombreEmpresa.getText(), Integer.parseInt(txtRuc.getText()), txtFecha.getText(), txtDireccion.getText(), Double.parseDouble(txtTotal.getText()));
-        Connection conex= DriverManager.getConnection(xurl,xusu,xpas);
-        //crear la consulta
-        Statement declarar=conex.createStatement();
-        //mostrar la consulta
-        String xsql="INSERT INTO registrofacturas values('"+fac.getCodigo()+"','"+fac.getNombre()
-                +"','"+String.valueOf(fac.getRUC())+"','"+fac.getFecha()+"','"+fac.getDireccion()+"','"+String.valueOf(fac.getTotal())+"')";
-        declarar.execute(xsql);
+            //conectarse a la base de datos
+            Connection cn = MySQLConexion.getConexion();
+            //crear la consulta
+            String sql = "INSERT INTO ";
+            PreparedStatement st = cn.prepareStatement(sql);
+            //mostrar la consulta
+            st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null, "El cliente fue registrado");
-            Final menu=new Final();
+            Final menu = new Final();
             this.dispose();
             menu.setVisible(true);
-        
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al registrar la factura");
-        }
-        catch (NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Ingrese todos los datos");
         }
 
     }//GEN-LAST:event_btGuardarActionPerformed
 
     private void btRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroActionPerformed
-        RegistroFacturas mostrar=new RegistroFacturas();
+        RegistroFacturas mostrar = new RegistroFacturas();
         mostrar.setVisible(true);
     }//GEN-LAST:event_btRegistroActionPerformed
 

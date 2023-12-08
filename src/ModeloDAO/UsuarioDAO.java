@@ -23,10 +23,10 @@ public class UsuarioDAO {
         String sql = "INSERT INTO `usuario` VALUES (?,?,?,?)";
         try {
             PreparedStatement st = cn.prepareStatement(sql);
-            st.setString(1, u.getCod());
+            st.setInt(1, u.getCod());
             st.setString(2, u.getUsr());
             st.setString(3, u.getPass());
-            st.setString(4, u.getCat_cod());
+            st.setInt(4, u.getCat_cod());
             st.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -44,10 +44,10 @@ public class UsuarioDAO {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 p = new Usuario();
-                p.setCod(rs.getString(1));
+                p.setCod(rs.getInt(1));
                 p.setUsr(rs.getString(2));
                 p.setPass(rs.getString(3));
-                p.setCat_cod(rs.getString(4));
+                p.setCat_cod(rs.getInt(4));
                 return true;
             }
 

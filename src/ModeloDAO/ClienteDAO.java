@@ -27,7 +27,7 @@ public class ClienteDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Cliente b = new Cliente();
-                b.setCli_cod(rs.getString(1));
+                b.setCli_cod(rs.getInt(1));
                 b.setCli_nom(rs.getString(2));
                 b.setCli_tel(rs.getString(3));
                 b.setCli_cor(rs.getString(4));
@@ -45,7 +45,7 @@ public class ClienteDAO {
         String sql = "INSERT INTO clientes VALUES(?,?,?,?,?)";
         try {
             PreparedStatement st = cn.prepareStatement(sql);
-            st.setString(1, b.getCli_cod());
+            st.setInt(1, b.getCli_cod());
             st.setString(2, b.getCli_nom());
             st.setString(3, b.getCli_tel());
             st.setString(4, b.getCli_cor());
@@ -65,7 +65,7 @@ public class ClienteDAO {
             st.setString(2, b.getCli_tel());
             st.setString(3, b.getCli_cor());
             st.setString(4, b.getCli_dir());
-            st.setString(5, b.getCli_cod());
+            st.setInt(5, b.getCli_cod());
             st.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();

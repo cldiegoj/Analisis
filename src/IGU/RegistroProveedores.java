@@ -30,7 +30,7 @@ public class RegistroProveedores extends javax.swing.JFrame {
         List<Proveedor> lista = proveedordao.listado();
 
         for (Proveedor x : lista) {
-            fila[0] = x.getPro_cod();
+            fila[0] = Integer.toString(x.getPro_cod());
             fila[1] = x.getPro_nom();
             fila[2] = Integer.toString(x.getPro_ruc());
             tabla.addRow(fila);

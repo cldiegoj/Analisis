@@ -1,15 +1,14 @@
 package IGU;
 
-import Clases.CInicioSesion;
 import Clases.Usuario;
 import ModeloDAO.UsuarioDAO;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 public class InicioSesion extends javax.swing.JFrame {
 
     UsuarioDAO usuariodao = new UsuarioDAO();
 
-    CInicioSesion iniciar = new CInicioSesion();
 
     public InicioSesion() {
         initComponents();
@@ -143,6 +142,7 @@ public class InicioSesion extends javax.swing.JFrame {
             Mensaje.setForeground(Color.red);
             Mensaje.setText("Usuario o contraseña invalida");
         } else {
+            JOptionPane.showMessageDialog(null, "Sesión iniciada correctamente");
             menu.setVisible(true);
             this.dispose();
         }

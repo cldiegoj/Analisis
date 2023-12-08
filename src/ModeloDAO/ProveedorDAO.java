@@ -23,7 +23,7 @@ public class ProveedorDAO {
         String sql = "INSERT INTO `proveedor` VALUES (?,?,?)";
         try {
             PreparedStatement st = cn.prepareStatement(sql);
-            st.setString(1, u.getPro_cod());
+            st.setInt(1, u.getPro_cod());
             st.setString(2, u.getPro_nom());
             st.setInt(3, u.getPro_ruc());
             st.executeUpdate();
@@ -41,7 +41,7 @@ public class ProveedorDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Proveedor p = new Proveedor();
-                p.setPro_cod(rs.getString(1));
+                p.setPro_cod(rs.getInt(1));
                 p.setPro_nom(rs.getString(2));
                 p.setPro_ruc(rs.getInt(3));
                 lista.add(p);

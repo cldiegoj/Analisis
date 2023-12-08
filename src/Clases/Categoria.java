@@ -9,11 +9,11 @@ package Clases;
  * @author KID-R
  */
 public class Categoria {
-    private String cat_cod ;
+    private int cat_cod ;
     private String cat_des;
     private String cat_nom;
 
-    public Categoria(String cat_cod, String cat_des, String cat_nom) {
+    public Categoria(int cat_cod, String cat_des, String cat_nom) {
         this.cat_cod = cat_cod;
         this.cat_des = cat_des;
         this.cat_nom = cat_nom;
@@ -22,11 +22,11 @@ public class Categoria {
         
     }
 
-    public String getCat_cod() {
+    public int getCat_cod() {
         return cat_cod;
     }
 
-    public void setCat_cod(String cat_cod) {
+    public void setCat_cod(int cat_cod) {
         this.cat_cod = cat_cod;
     }
 

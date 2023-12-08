@@ -27,12 +27,37 @@ public class ArticuloDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Articulo b = new Articulo();
-                b.setArt_cod(rs.getString(1));
+                b.setArt_cod(rs.getInt(1));
                 b.setArt_nom(rs.getString(2));
                 b.setArt_des(rs.getString(3));
                 b.setArt_pre(rs.getDouble(4));
                 b.setArt_stk(rs.getInt(5));
-                b.setPro_cod(rs.getString(6));
+                b.setPro_cod(rs.getInt(6));
+                lista.add(b);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return lista;
+    }
+    
+    public List<Articulo> ListaFiltro(String proveedor){
+        Connection cn = MySQLConexion.getConexion();
+        String sql = "select a.art_cod, a.art_nom, a.art_des, a.art_pre, a.art_stk, a.pro_cod from articulos a INNER JOIN"
+                + " proveedor p ON a.pro_cod=p.pro_cod WHERE p.pro_nom = ?";
+        List<Articulo> lista = new ArrayList();
+        try{
+            PreparedStatement st = cn.prepareStatement(sql);
+            st.setString(1, proveedor);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()){
+                Articulo b = new Articulo();
+                b.setArt_cod(rs.getInt(1));
+                b.setArt_nom(rs.getString(2));
+                b.setArt_des(rs.getString(3));
+                b.setArt_pre(rs.getDouble(4));
+                b.setArt_stk(rs.getInt(5));
+                b.setPro_cod(rs.getInt(6));
                 lista.add(b);
             }
         } catch (Exception ex) {
@@ -46,12 +71,12 @@ public class ArticuloDAO {
         String sql = "INSERT INTO articulos VALUES(?,?,?,?,?,?)";
         try {
             PreparedStatement st = cn.prepareStatement(sql);
-            st.setString(1, b.getArt_cod());
+            st.setInt(1, b.getArt_cod());
             st.setString(2, b.getArt_nom());
             st.setString(3, b.getArt_des());
             st.setDouble(4, b.getArt_pre());
             st.setInt(5, b.getArt_stk());
-            st.setString(6, b.getPro_cod());
+            st.setInt(6, b.getPro_cod());
             st.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -67,7 +92,7 @@ public class ArticuloDAO {
             st.setString(2, b.getArt_des());
             st.setDouble(3, b.getArt_pre());
             st.setInt(4, b.getArt_stk());
-            st.setString(5, b.getArt_cod());
+            st.setInt(5, b.getArt_cod());
             st.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();

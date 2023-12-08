@@ -28,7 +28,7 @@ public class InventarioIGU extends javax.swing.JFrame {
         List<Articulo> lista = artdao.Listado();
 
         for (Articulo x : lista) {
-            fila[0] = x.getArt_cod();
+            fila[0] = Integer.toString(x.getArt_cod());
             fila[1] = x.getArt_nom();
             fila[2] = Double.toString(x.getArt_pre());
             fila[3] = Integer.toString(x.getArt_stk());

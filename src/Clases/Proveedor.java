@@ -9,11 +9,11 @@ package Clases;
  * @author KID-R
  */
 public class Proveedor {
-    private String pro_cod;
+    private int pro_cod;
     private String pro_nom;
     private int pro_ruc;
 
-    public Proveedor(String pro_cod, String pro_nom, int pro_ruc) {
+    public Proveedor(int pro_cod, String pro_nom, int pro_ruc) {
         this.pro_cod = pro_cod;
         this.pro_nom = pro_nom;
         this.pro_ruc = pro_ruc;
@@ -22,11 +22,11 @@ public class Proveedor {
         
     }
 
-    public String getPro_cod() {
+    public int getPro_cod() {
         return pro_cod;
     }
 
-    public void setPro_cod(String pro_cod) {
+    public void setPro_cod(int pro_cod) {
         this.pro_cod = pro_cod;
     }
 

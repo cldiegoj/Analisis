@@ -11,9 +11,9 @@ package Clases;
 public class Fac_deta {
     private int art_can;
     private String art_cod;
-    private String fac_num;
+    private int fac_num;
 
-    public Fac_deta(int art_can, String art_cod, String fac_num) {
+    public Fac_deta(int art_can, String art_cod, int fac_num) {
         this.art_can = art_can;
         this.art_cod = art_cod;
         this.fac_num = fac_num;
@@ -39,11 +39,11 @@ public class Fac_deta {
         this.art_cod = art_cod;
     }
 
-    public String getFac_num() {
+    public int getFac_num() {
         return fac_num;
     }
 
-    public void setFac_num(String fac_num) {
+    public void setFac_num(int fac_num) {
         this.fac_num = fac_num;
     }
     

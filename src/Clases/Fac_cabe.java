@@ -11,12 +11,13 @@ import java.util.Date;
  * @author KID-R
  */
 public class Fac_cabe {
-    private String cli_cod;
+    private int fac_num;
     private Date fac_fec;
+    private int cli_cod;
     private String fac_igv;
-    private String fac_num;
+    
 
-    public Fac_cabe(String cli_cod, Date fac_fec, String fac_igv, String fac_num) {
+    public Fac_cabe(int cli_cod, Date fac_fec, String fac_igv, int fac_num) {
         this.cli_cod = cli_cod;
         this.fac_fec = fac_fec;
         this.fac_igv = fac_igv;
@@ -26,11 +27,11 @@ public class Fac_cabe {
         
     }
 
-    public String getCli_cod() {
+    public int getCli_cod() {
         return cli_cod;
     }
 
-    public void setCli_cod(String cli_cod) {
+    public void setCli_cod(int cli_cod) {
         this.cli_cod = cli_cod;
     }
 
@@ -50,11 +51,11 @@ public class Fac_cabe {
         this.fac_igv = fac_igv;
     }
 
-    public String getFac_num() {
+    public int getFac_num() {
         return fac_num;
     }
 
-    public void setFac_num(String fac_num) {
+    public void setFac_num(int fac_num) {
         this.fac_num = fac_num;
     }
     

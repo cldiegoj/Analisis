@@ -9,13 +9,13 @@ package Clases;
  * @author KID-R
  */
 public class Cliente {
-    private String cli_cod;
+    private int cli_cod;
     private String cli_cor;
     private String cli_dir;
     private String cli_nom;
     private String cli_tel;
 
-    public Cliente(String cli_cod, String cli_cor, String cli_dir, String cli_nom, String cli_tel) {
+    public Cliente(int cli_cod, String cli_cor, String cli_dir, String cli_nom, String cli_tel) {
         this.cli_cod = cli_cod;
         this.cli_cor = cli_cor;
         this.cli_dir = cli_dir;
@@ -26,11 +26,11 @@ public class Cliente {
         
     }
 
-    public String getCli_cod() {
+    public int getCli_cod() {
         return cli_cod;
     }
 
-    public void setCli_cod(String cli_cod) {
+    public void setCli_cod(int cli_cod) {
         this.cli_cod = cli_cod;
     }
 

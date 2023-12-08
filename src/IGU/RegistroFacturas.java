@@ -1,53 +1,43 @@
-
-
 package IGU;
 
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
-
+import util.MySQLConexion;
 
 public class RegistroFacturas extends javax.swing.JFrame {
 
     DefaultTableModel tabla;
 
-    
     public RegistroFacturas() {
         initComponents();
         this.setLocationRelativeTo(null);
         cargarRegistroAlaTabla();
     }
- public void cargarRegistroAlaTabla(){
-       String[] titulo={"Codigo","Nombre Entidad","RUC","Direccion","Fecha","Total"};
-       tabla=new DefaultTableModel(null,titulo);
-       String[] fila=new String[6];
+
+    public void cargarRegistroAlaTabla() {
+        String[] titulo = {"Numero de factura", "Cliente", "Articulo", "Fecha"};
+        tabla = new DefaultTableModel(null, titulo);
+        Object[] fila = new Object[5];
         try {
-          //conectarse a la base de datos
-        String xurl="jdbc:mysql://localhost/bdcasahogar";
-        String xusu="root";
-        String xpas="";
-        
-        Connection conex= DriverManager.getConnection(xurl,xusu,xpas);
-        //crear la consulta
-        Statement declarar=conex.createStatement();
-        //mostrar la consulta
-        String xsql="SELECT * FROM registrofacturas";
-        ResultSet rs=declarar.executeQuery(xsql);
-        while(rs.next()){
-           fila[0]=rs.getString("cod_fac");
-           fila[1]=rs.getString("nom_fac");
-           fila[2]=rs.getString("ruc_fac");
-           fila[3]=rs.getString("dir_fac");
-           fila[4]=rs.getString("fec_fac");
-           fila[5]=rs.getString("tot_fac");
-           tabla.addRow(fila);
-        }
-        tablaDatos.setModel(tabla);
+            //conectarse a la base de datos
+            Connection cn = MySQLConexion.getConexion();
+            String sql = "select fac_num, fac_fec, c.cli_nom, c.cli_dir from fac_cabe f INNER JOIN clientes c ON c.cli_cod=f.cli_cod";
+
+            PreparedStatement st = cn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                fila[0] = rs.getInt(1);
+                fila[1] = rs.getDate(2);
+                fila[2] = rs.getString(3);
+                fila[3] = rs.getString(4);
+                tabla.addRow(fila);
+            }
+            tablaDatos.setModel(tabla);
         } catch (SQLException ex) {
             System.out.println("Error en la conexion...");
         }
-       
+
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -193,31 +183,31 @@ public class RegistroFacturas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Abastecimiento pro=new Abastecimiento();
+        Abastecimiento pro = new Abastecimiento();
         pro.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        Pedidos pedido=new Pedidos();
+        Pedidos pedido = new Pedidos();
         pedido.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        InventarioIGU inve=new InventarioIGU();
+        InventarioIGU inve = new InventarioIGU();
         inve.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        RegistroProveedores reg=new RegistroProveedores();
+        RegistroProveedores reg = new RegistroProveedores();
         reg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        Vista menu=new Vista();
+        Vista menu = new Vista();
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -227,12 +217,11 @@ public class RegistroFacturas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-    RegistroFacturas fac=new RegistroFacturas();
-     fac.setVisible(true);
-     this.dispose();
+        RegistroFacturas fac = new RegistroFacturas();
+        fac.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */

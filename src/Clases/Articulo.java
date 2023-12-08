@@ -3,14 +3,14 @@ package Clases;
 
 
 public class Articulo {
-    private String art_cod;
+    private int art_cod;
     private String art_nom;
     private String art_des;
     private double art_pre;
     private int art_stk;
-    private String pro_cod;
+    private int pro_cod;
 
-    public Articulo(String art_cod, String art_nom, String art_des, double art_pre, int art_stk, String pro_cod) {
+    public Articulo(int art_cod, String art_nom, String art_des, double art_pre, int art_stk, int pro_cod) {
         this.art_cod = art_cod;
         this.art_nom = art_nom;
         this.art_des = art_des;
@@ -23,11 +23,11 @@ public class Articulo {
         
     }
 
-    public String getArt_cod() {
+    public int getArt_cod() {
         return art_cod;
     }
 
-    public void setArt_cod(String art_cod) {
+    public void setArt_cod(int art_cod) {
         this.art_cod = art_cod;
     }
 
@@ -63,11 +63,11 @@ public class Articulo {
         this.art_stk = art_stk;
     }
 
-    public String getPro_cod() {
+    public int getPro_cod() {
         return pro_cod;
     }
 
-    public void setPro_cod(String pro_cod) {
+    public void setPro_cod(int pro_cod) {
         this.pro_cod = pro_cod;
     }
     

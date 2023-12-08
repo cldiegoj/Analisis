@@ -33,7 +33,6 @@ public class Abastecimiento extends javax.swing.JFrame {
         tbPedidos.setModel(modelo2);
         String[] cabecera = {"Codigo Producto", "Nombre Producto", "Precio Unitario", "Cantidad", "Subtotal"};
         modelo2.setColumnIdentifiers(cabecera);
-        llenarCombo();
         llenarComboProveedor();
     }
 
@@ -64,10 +63,29 @@ public class Abastecimiento extends javax.swing.JFrame {
         }
     }
 
+    public void CargarProductosTabla() {
+        //Cabecera de la tabla
+        String[] titulo = {"Producto", "Stock"};
+
+        String[] fila = new String[2];
+
+        DefaultTableModel tabla = new DefaultTableModel(null, titulo);
+        String proveedor = cbxProovedor.getSelectedItem().toString();
+        List<Articulo> lista = articulodao.ListaFiltro(proveedor);
+
+        for (Articulo x : lista) {
+            fila[0] = x.getArt_nom();
+            fila[1] = Integer.toString(x.getArt_stk());
+            tabla.addRow(fila);
+            tbPrecios.setModel(tabla);
+        }
+    }
+
     public void llenarCombo() {
 
         List<Articulo> listaart = new ArrayList();
-        listaart = articulodao.Listado();
+        String proveedor = cbxProovedor.getSelectedItem().toString();
+        listaart = articulodao.ListaFiltro(proveedor);
 
         for (Articulo x : listaart) {
             cbxProducto.addItem(x.getArt_nom());
@@ -80,7 +98,7 @@ public class Abastecimiento extends javax.swing.JFrame {
         listproveedor = proveedordao.listado();
 
         for (Proveedor x : listproveedor) {
-            cbxProovedor.addItem(x.getPro_cod() + " - " + x.getPro_nom());
+            cbxProovedor.addItem(x.getPro_nom());
         }
     }
 
@@ -115,17 +133,17 @@ public class Abastecimiento extends javax.swing.JFrame {
                 cbxProductoActionPerformed(evt);
             }
         });
-        getContentPane().add(cbxProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 260, 40));
+        getContentPane().add(cbxProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 260, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Proveedor");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Producto");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
         txtCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,12 +205,12 @@ public class Abastecimiento extends javax.swing.JFrame {
         getContentPane().add(btMostrarInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, 220, 60));
 
         lbImagen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 20, 180, 150));
+        getContentPane().add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 20, 180, 150));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Cantidad");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         cbxProovedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--" }));
         cbxProovedor.addActionListener(new java.awt.event.ActionListener() {
@@ -200,27 +218,23 @@ public class Abastecimiento extends javax.swing.JFrame {
                 cbxProovedorActionPerformed(evt);
             }
         });
-        getContentPane().add(cbxProovedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 260, 40));
+        getContentPane().add(cbxProovedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 260, 40));
 
         tbPrecios.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tbPrecios.setForeground(new java.awt.Color(51, 51, 51));
         tbPrecios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Cama 2 plazas", null},
-                {"Ropero", null},
-                {"Sillas", null},
-                {"Escritorio", null},
-                {"Comoda", null},
-                {"Tocador", null},
-                {"Sofa", null},
-                {"Velador", null},
-                {"Zapatero", null}
+
             },
             new String [] {
-                "Producto", "Precio"
+                "Producto", "Stock"
             }
         ));
         jScrollPane2.setViewportView(tbPrecios);
+        if (tbPrecios.getColumnModel().getColumnCount() > 0) {
+            tbPrecios.getColumnModel().getColumn(0).setHeaderValue("Producto");
+            tbPrecios.getColumnModel().getColumn(1).setHeaderValue("Stock");
+        }
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 180, 280, 340));
 
@@ -246,39 +260,6 @@ public class Abastecimiento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCantidadActionPerformed
 
     private void cbxProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProductoActionPerformed
-
-        switch (cbxProducto.getSelectedIndex()) {
-            case 0:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\");
-                break;
-            case 1:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\cama2.jpg");
-                break;
-            case 2:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\ropero.jpg");
-                break;
-            case 3:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\silla.jpg");
-                break;
-            case 4:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\escritorio.jpg");
-                break;
-            case 5:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\comoda_1.png");
-                break;
-            case 6:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\tocador.jpg");
-                break;
-            case 7:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\sofa.jpg");
-                break;
-            case 8:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\velador.jpg");
-                break;
-            case 9:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\zapatero.jpg");
-                break;
-        }
 
     }//GEN-LAST:event_cbxProductoActionPerformed
 
@@ -390,41 +371,8 @@ public class Abastecimiento extends javax.swing.JFrame {
     }//GEN-LAST:event_btProcesarPedidoActionPerformed
 
     private void cbxProovedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProovedorActionPerformed
-        switch (cbxProovedor.getSelectedIndex()) {
-            case 1:
-                tbPrecios.setValueAt(200, 0, 1);
-                tbPrecios.setValueAt(100, 1, 1);
-                tbPrecios.setValueAt(10, 2, 1);
-                tbPrecios.setValueAt(150, 3, 1);
-                tbPrecios.setValueAt(120, 4, 1);
-                tbPrecios.setValueAt(80, 5, 1);
-                tbPrecios.setValueAt(50, 6, 1);
-                tbPrecios.setValueAt(70, 7, 1);
-                tbPrecios.setValueAt(30, 8, 1);
-                break;
-            case 2:
-                tbPrecios.setValueAt(250, 0, 1);
-                tbPrecios.setValueAt(130, 1, 1);
-                tbPrecios.setValueAt(25, 2, 1);
-                tbPrecios.setValueAt(165, 3, 1);
-                tbPrecios.setValueAt(125, 4, 1);
-                tbPrecios.setValueAt(90, 5, 1);
-                tbPrecios.setValueAt(60, 6, 1);
-                tbPrecios.setValueAt(75, 7, 1);
-                tbPrecios.setValueAt(45, 8, 1);
-                break;
-            case 3:
-                tbPrecios.setValueAt(260, 0, 1);
-                tbPrecios.setValueAt(120, 1, 1);
-                tbPrecios.setValueAt(30, 2, 1);
-                tbPrecios.setValueAt(130, 3, 1);
-                tbPrecios.setValueAt(100, 4, 1);
-                tbPrecios.setValueAt(50, 5, 1);
-                tbPrecios.setValueAt(80, 6, 1);
-                tbPrecios.setValueAt(60, 7, 1);
-                tbPrecios.setValueAt(30, 8, 1);
-                break;
-        }
+        llenarCombo();
+        CargarProductosTabla();
         cbxProovedor.setEnabled(false);
     }//GEN-LAST:event_cbxProovedorActionPerformed
 
@@ -485,7 +433,7 @@ public class Abastecimiento extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbImagen;
     private javax.swing.JTable tbPedidos;
-    private javax.swing.JTable tbPrecios;
+    public static javax.swing.JTable tbPrecios;
     private javax.swing.JTextField txtCantidad;
     // End of variables declaration//GEN-END:variables
 }

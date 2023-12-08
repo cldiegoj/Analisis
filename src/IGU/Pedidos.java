@@ -14,16 +14,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import util.MySQLConexion;
 
 public class Pedidos extends javax.swing.JFrame {
-    
+
     //Dao articulos
     ArticuloDAO articulodao = new ArticuloDAO();
 
     //Tabla
     DefaultTableModel modelo2 = new DefaultTableModel();
-    
-    
+
     InventarioIGU inve = new InventarioIGU();
     private ImageIcon imagen;
     private Icon icono;
@@ -50,27 +50,22 @@ public class Pedidos extends javax.swing.JFrame {
 
     public void modificar(int cantidad, String nombre) {
         try {
-            String xurl = "jdbc:mysql://localhost/bdcasahogar";
-            String xusu = "root";
-            String xpas = "";
 
-            Connection conex = DriverManager.getConnection(xurl, xusu, xpas);
-            //crear la consulta
-            Statement declarar = conex.createStatement();
-            //actualizar un registro
-            String xsql = "UPDATE inventario SET stock_prod=stock_prod-" + cantidad + " WHERE nom_prod='" + nombre + "'";
-            declarar.execute(xsql);
+            Connection cn = MySQLConexion.getConexion();
+            String sql = "UPDATE articulos SET art_stk = art_stk - " + cantidad + " where art_nom = '" + nombre + "'";
+            PreparedStatement st = cn.prepareStatement(sql);
+            st.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Error...Falla en la conexion");
         }
     }
 
     public void llenarCombo() {
-        
+
         List<Articulo> listaart = new ArrayList();
         listaart = articulodao.Listado();
-        
-        for(Articulo x : listaart){
+
+        for (Articulo x : listaart) {
             cbxProducto.addItem(x.getArt_nom());
         }
     }
@@ -173,7 +168,7 @@ public class Pedidos extends javax.swing.JFrame {
         getContentPane().add(btMostrarInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 290, 210, 60));
 
         lbImagen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        getContentPane().add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, 160, 150));
+        getContentPane().add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 160, 150));
 
         btSalir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Salir.png"))); // NOI18N
@@ -198,68 +193,30 @@ public class Pedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCantidadActionPerformed
 
     private void cbxProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProductoActionPerformed
-
-        switch (cbxProducto.getSelectedIndex()) {
-            case 0:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\");
-                break;
-            case 1:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\cama2.jpg");
-                break;
-            case 2:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\ropero.jpg");
-                break;
-            case 3:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\silla.jpg");
-                break;
-            case 4:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\escritorio.jpg");
-                break;
-            case 5:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\comoda_1.png");
-                break;
-            case 6:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\tocador.jpg");
-                break;
-            case 7:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\velador.jpg");
-                break;
-            case 8:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\zapatero.jpg");
-                break;
-            case 9:
-                pintarImagen(lbImagen, "C:\\Users\\Jordan Davila\\Documents\\NetBeansProjects\\Proyecto_Avance3\\src\\Imagenes\\sofa.jpg");
-                break;
-
-        }
-
+//        String producto = cbxProducto.getSelectedItem().toString();
+//        Image icon = new ImageIcon(this.getClass().getResource("/"+producto+".jpg")).getImage();
+//        lbImagen.setIcon(icono);
     }//GEN-LAST:event_cbxProductoActionPerformed
 
     private void btAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarProductoActionPerformed
 
         try {
             if (Integer.parseInt(txtCantidad.getText()) > 0) {
-                String xurl = "jdbc:mysql://localhost/bdcasahogar";
-                String xusu = "root";
-                String xpas = "";
-
-                Connection conex = DriverManager.getConnection(xurl, xusu, xpas);
-                //crear la consulta
-                Statement declarar = conex.createStatement();
-                //mostrar la consulta
-                String xsql = "SELECT * from inventario where nom_prod='" + cbxProducto.getSelectedItem().toString() + "'";
-                ResultSet rs = declarar.executeQuery(xsql);
-                String orden[] = new String[4];
+                Connection cn = MySQLConexion.getConexion();
+                String sql = "select * from articulos where art_nom = '" + cbxProducto.getSelectedItem().toString() + "'";
+                PreparedStatement st = cn.prepareStatement(sql);
+                ResultSet rs = st.executeQuery();
+                Object orden[] = new Object[4];
 
                 while (rs.next()) {
-                    orden[0] = rs.getString("cod_prod");
-                    orden[1] = rs.getString("nom_prod");
-                    orden[2] = rs.getString("pre_prod");
+                    orden[0] = rs.getInt("art_cod");
+                    orden[1] = rs.getString("art_nom");
+                    orden[2] = rs.getDouble("art_pre");
                     orden[3] = txtCantidad.getText();
                     modelo2.addRow(orden);
                 }
 
-                modificar(Integer.parseInt(txtCantidad.getText()), orden[1]);
+                modificar(Integer.parseInt(txtCantidad.getText()), orden[1].toString());
                 inve.cargarRegistroAlaTabla();
 
             } else {
@@ -275,7 +232,6 @@ public class Pedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_btAgregarProductoActionPerformed
 
     private void btMostrarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMostrarInventarioActionPerformed
-
         inve.setVisible(true);
     }//GEN-LAST:event_btMostrarInventarioActionPerformed
 
@@ -286,17 +242,28 @@ public class Pedidos extends javax.swing.JFrame {
                 String[] datos = new String[5];
                 double totalCompra = 0;
                 for (int i = 0; i < modelo2.getRowCount(); i++) {
+                    //Codigo de articulo
                     datos[0] = tbPedidos.getValueAt(i, 0).toString();
+                    //Nombre de producto
                     datos[1] = tbPedidos.getValueAt(i, 1).toString();
+                    //Precio unitario
                     datos[2] = tbPedidos.getValueAt(i, 3).toString();
+                    //Cantidad
                     datos[3] = tbPedidos.getValueAt(i, 2).toString();
+                    
+                    //Calcula 
                     datos[4] = String.valueOf(Double.parseDouble(datos[2]) * Double.parseDouble(datos[3]));
+                    
+                    
                     totalCompra = totalCompra + Double.parseDouble(datos[4]);
                     newframe.modelo.addRow(datos);
 
                 }
+                //Subtotal
                 txtSubtotal.setText(String.valueOf(totalCompra));
+               //IGV 
                 txtIGV.setText(String.valueOf(totalCompra * 0.18));
+                //Total
                 txtTotal.setText(String.valueOf(totalCompra + (totalCompra * 0.18)));
                 newframe.setVisible(true);
                 this.dispose();
