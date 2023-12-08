@@ -7,14 +7,15 @@ CREATE TABLE `usuario` (
   `cod` int PRIMARY KEY AUTO_INCREMENT,
   `usr` varchar(40) NOT NULL,
   `pass` varchar(40) NOT NULL,
+  `est` int,
   `cat_cod` int NOT NULL
 );
 
-INSERT INTO usuario VALUES(null,'cldiegoj','pas123','1');
-INSERT INTO usuario VALUES(null,'capysoza','con123','1');
-INSERT INTO usuario VALUES(null,'aaron123','qwe123','1');
-INSERT INTO usuario VALUES(null,'arturogo','geek456','1');
-INSERT INTO usuario VALUES(null,'henrygaa','style789','1');
+INSERT INTO usuario VALUES(null,'cldiegoj','pas123',0,'1');
+INSERT INTO usuario VALUES(null,'capysoza','con123',0,'1');
+INSERT INTO usuario VALUES(null,'aaron123','qwe123',0,'1');
+INSERT INTO usuario VALUES(null,'arturogo','geek456',0,'1');
+INSERT INTO usuario VALUES(null,'henrygaa','style789',0,'1');
 
 
 

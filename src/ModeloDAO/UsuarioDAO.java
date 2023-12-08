@@ -34,26 +34,54 @@ public class UsuarioDAO {
     }
 
     public boolean Login(String usr, String pas) {
-        Usuario p = null;
         Connection cn = MySQLConexion.getConexion();
-        String sql = "select cod, usr, pass, cat_cod from usuario where usr=? and pass=? ";
+        String sql = "UPDATE usuario set est=1 where usr=? and pass=? ";
         try {
             PreparedStatement st = cn.prepareStatement(sql);
             st.setString(1, usr);
             st.setString(2, pas);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                p = new Usuario();
-                p.setCod(rs.getInt(1));
-                p.setUsr(rs.getString(2));
-                p.setPass(rs.getString(3));
-                p.setCat_cod(rs.getInt(4));
+            if(st.executeUpdate() > 0){
                 return true;
             }
+            cn.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return false;
+    }
+    
+    public boolean Logout(){
+        Connection cn = MySQLConexion.getConexion();
+        String sql = "UPDATE usuario set est=0 where est = 1";
+        try{
+            PreparedStatement st = cn.prepareStatement(sql);
+            if(st.executeUpdate() > 0){
+                return true;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    public Usuario activo(){
+        Usuario u = null;
+        Connection cn = MySQLConexion.getConexion();
+        String sql = "select cod, usr, pass, est, cat_cod from usuario where est = 1";
+        try{
+            PreparedStatement st = cn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                u.setCod(rs.getInt(1));
+                u.setUsr(rs.getString(2));
+                u.setPass(rs.getString(3));
+                u.setEst(rs.getInt(4));
+                u.setCat_cod(rs.getInt(5));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return u;
     }
 }

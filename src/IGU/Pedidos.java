@@ -88,6 +88,7 @@ public class Pedidos extends javax.swing.JFrame {
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cbxProducto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N

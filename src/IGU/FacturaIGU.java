@@ -3,6 +3,7 @@
  */
 package IGU;
 
+import Clases.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +26,7 @@ public class FacturaIGU extends javax.swing.JFrame {
         txtFecha.setText(formato.format(fecha));
         this.setLocationRelativeTo(null);
         this.llenarnfactura();
+        this.llenarcampos();
     }
     
     private void llenarnfactura(){
@@ -51,6 +53,28 @@ public class FacturaIGU extends javax.swing.JFrame {
         info[3] = String.valueOf(precio);
         info[4] = String.valueOf(total);
         modelo.addRow(info);
+    }
+    
+    public void llenarcampos(){
+        Connection cn = MySQLConexion.getConexion();
+        String sql = "select * from usuario where est = 1";
+        try{
+            Usuario u = new Usuario();
+            PreparedStatement st = cn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                u.setCod(rs.getInt(1));
+                u.setUsr(rs.getString(2));
+                u.setPass(rs.getString(3));
+                u.setEst(rs.getInt(4));
+                u.setCat_cod(rs.getInt(5));
+            }
+            txtNombreEmpresa.setText(u.getUsr());
+            txtDireccion.setText(u.getPass());
+            txtRuc.setText(Integer.toString(u.getCat_cod()));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -94,6 +118,7 @@ public class FacturaIGU extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -115,7 +140,7 @@ public class FacturaIGU extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setText("NOMBRE DE EMPRESA:");
+        jLabel3.setText("NOMBRE :");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 165, -1, 38));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N

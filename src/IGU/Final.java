@@ -2,6 +2,8 @@
 
 package IGU;
 
+import ModeloDAO.UsuarioDAO;
+
 
 
 
@@ -24,6 +26,7 @@ public class Final extends javax.swing.JFrame {
         txtFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setBackground(new java.awt.Color(0, 0, 0));
@@ -64,6 +67,8 @@ public class Final extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        UsuarioDAO dao  = new UsuarioDAO();
+        dao.Logout();
         System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 

@@ -9,19 +9,22 @@ package Clases;
  * @author KID-R
  */
 public class Usuario {
+
     private int cat_cod;
     private int cod;
     private String pass;
     private String usr;
+    private int est;
 
-    public Usuario(int cat_cod, int cod, String pass, String usr) {
+    public Usuario() {
+    }
+
+    public Usuario(int cat_cod, int cod, String pass, String usr, int est) {
         this.cat_cod = cat_cod;
         this.cod = cod;
         this.pass = pass;
         this.usr = usr;
-    }
-    public Usuario(){
-        
+        this.est = est;
     }
 
     public int getCat_cod() {
@@ -55,6 +58,13 @@ public class Usuario {
     public void setUsr(String usr) {
         this.usr = usr;
     }
-    
-    
+
+    public int getEst() {
+        return est;
+    }
+
+    public void setEst(int est) {
+        this.est = est;
+    }
+
 }

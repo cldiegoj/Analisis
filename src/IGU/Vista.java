@@ -4,6 +4,8 @@
  */
 package IGU;
 
+import ModeloDAO.UsuarioDAO;
+
 
 public class Vista extends javax.swing.JFrame {
 
@@ -140,7 +142,9 @@ public class Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnClientesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      System.exit(0);
+        UsuarioDAO dao = new UsuarioDAO();
+        dao.Logout();
+        System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
