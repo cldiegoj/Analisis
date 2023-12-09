@@ -111,7 +111,7 @@ public class Abastecimiento extends javax.swing.JFrame {
         btProcesarPedido = new javax.swing.JButton();
         btAgregarProducto = new javax.swing.JButton();
         btMostrarInventario = new javax.swing.JButton();
-        lbImagen = new javax.swing.JLabel();
+        Imagen = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cbxProovedor = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -201,8 +201,8 @@ public class Abastecimiento extends javax.swing.JFrame {
         });
         getContentPane().add(btMostrarInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, 220, 60));
 
-        lbImagen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 20, 180, 150));
+        Imagen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(Imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 20, 180, 150));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -257,9 +257,18 @@ public class Abastecimiento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCantidadActionPerformed
 
     private void cbxProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProductoActionPerformed
-
+       String nombre  = cbxProducto.getSelectedItem().toString();
+        cargarimagen(nombre);
     }//GEN-LAST:event_cbxProductoActionPerformed
 
+    public void cargarimagen(String nombre){
+        ImageIcon imagen = new ImageIcon("src/img/" + nombre + ".jpg");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(Imagen.getWidth(), Imagen.getHeight(), Image.SCALE_DEFAULT));
+        Imagen.setIcon(icono);
+        this.repaint();
+    }
+    
+    
     private void btAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarProductoActionPerformed
         try {
             Connection cn = MySQLConexion.getConexion();
@@ -282,8 +291,7 @@ public class Abastecimiento extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println("Error en la conexion...");
         }
-        //cbxProovedor.setEnabled(true);
-
+        txtCantidad.setText("");
     }//GEN-LAST:event_btAgregarProductoActionPerformed
 
     private void btMostrarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMostrarInventarioActionPerformed
@@ -322,6 +330,7 @@ public class Abastecimiento extends javax.swing.JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        cbxProovedor.setEnabled(true);
     }//GEN-LAST:event_btProcesarPedidoActionPerformed
 
     private void cbxProovedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProovedorActionPerformed
@@ -373,6 +382,7 @@ public class Abastecimiento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Imagen;
     private javax.swing.JButton btAgregarProducto;
     private javax.swing.JButton btMostrarInventario;
     private javax.swing.JButton btProcesarPedido;
@@ -385,7 +395,6 @@ public class Abastecimiento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lbImagen;
     private javax.swing.JTable tbPedidos;
     public static javax.swing.JTable tbPrecios;
     private javax.swing.JTextField txtCantidad;
