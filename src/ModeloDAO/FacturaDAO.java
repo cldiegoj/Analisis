@@ -4,7 +4,6 @@
  */
 package ModeloDAO;
 
-import com.mysql.cj.protocol.Resultset;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import util.MySQLConexion;

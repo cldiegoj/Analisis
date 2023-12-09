@@ -235,7 +235,9 @@ public class Pedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_btAgregarProductoActionPerformed
 
     private void btMostrarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMostrarInventarioActionPerformed
-        inve.setVisible(true);
+       MenuCliente mn= new MenuCliente();
+       mn.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_btMostrarInventarioActionPerformed
 
     private void btProcesarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcesarPedidoActionPerformed
