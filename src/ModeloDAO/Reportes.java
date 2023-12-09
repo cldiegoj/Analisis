@@ -218,7 +218,7 @@ public class Reportes {
         
         Document documento = new Document();
         try {
-            PdfWriter.getInstance(documento, new FileOutputStream("Reporte_" + nombre + ".pdf"));
+            PdfWriter.getInstance(documento, new FileOutputStream("Reporte_Numero " + num + " de " + nombre + ".pdf"));
             Image header = Image.getInstance("src/img/SuperNova.png");
             header.scaleToFit(650, 1000);
             header.setAlignment(Chunk.ALIGN_CENTER);

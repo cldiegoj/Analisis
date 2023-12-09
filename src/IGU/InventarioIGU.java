@@ -80,7 +80,7 @@ public class InventarioIGU extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(157, 87, 31));
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ico_end_RealizarPedidos.png"))); // NOI18N
-        jButton5.setText("  Realizar Pedido");
+        jButton5.setText(" Generar reporte");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -193,7 +193,7 @@ public class InventarioIGU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        Pedidos pedido = new Pedidos();
+        ReportesAdmin pedido = new ReportesAdmin();
         pedido.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
