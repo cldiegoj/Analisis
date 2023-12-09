@@ -39,7 +39,7 @@ public class Vista extends javax.swing.JFrame {
         jbtnClientes.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jbtnClientes.setForeground(new java.awt.Color(255, 255, 255));
         jbtnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ico_end_RealizarPedidos2.png"))); // NOI18N
-        jbtnClientes.setText("Realizar Pedido");
+        jbtnClientes.setText("Generar informes");
         jbtnClientes.setBorder(null);
         jbtnClientes.setBorderPainted(false);
         jbtnClientes.setFocusPainted(false);
@@ -135,8 +135,8 @@ public class Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnClientesMouseEntered
 
     private void jbtnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnClientesActionPerformed
-       Pedidos pedido=new Pedidos();
-       pedido.setVisible(true);
+       ReportesAdmin vista = new ReportesAdmin();
+       vista.setVisible(true);
        this.dispose();
        
     }//GEN-LAST:event_jbtnClientesActionPerformed
