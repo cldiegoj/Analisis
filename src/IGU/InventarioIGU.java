@@ -56,6 +56,7 @@ public class InventarioIGU extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbInventario = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         jButton2.setText("jButton2");
 
@@ -178,10 +179,13 @@ public class InventarioIGU extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbInventario);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 620, 630));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 630, 630));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Factura_End (3).jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 690));
+
+        jLabel4.setText("jLabel4");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 640, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -274,6 +278,7 @@ public class InventarioIGU extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbInventario;

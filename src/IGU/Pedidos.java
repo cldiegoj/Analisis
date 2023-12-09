@@ -90,24 +90,22 @@ public class Pedidos extends javax.swing.JFrame {
                 cbxProductoActionPerformed(evt);
             }
         });
-        getContentPane().add(cbxProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 230, 40));
+        getContentPane().add(cbxProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 230, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Cantidad");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Producto");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
 
         txtCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantidadActionPerformed(evt);
             }
         });
-        getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 130, 40));
+        getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 130, 40));
 
         tbPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -122,7 +120,7 @@ public class Pedidos extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbPedidos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 520, 390));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 520, 390));
 
         btProcesarPedido.setBackground(new java.awt.Color(187, 122, 68));
         btProcesarPedido.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -164,6 +162,7 @@ public class Pedidos extends javax.swing.JFrame {
         getContentPane().add(Imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 160, 150));
 
         btSalir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btSalir.setForeground(new java.awt.Color(255, 255, 255));
         btSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Salir.png"))); // NOI18N
         btSalir.setText("Volver al Menú");
         btSalir.setBorderPainted(false);
@@ -173,9 +172,9 @@ public class Pedidos extends javax.swing.JFrame {
                 btSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(btSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 450, 210, 60));
+        getContentPane().add(btSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 530, 210, 60));
 
-        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Pedido_End.jpg"))); // NOI18N
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/7.jpg"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 620));
 
         pack();

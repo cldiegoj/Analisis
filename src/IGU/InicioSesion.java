@@ -50,17 +50,15 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("SUPER NOVA");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 420, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 430, -1, -1));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Contraseña:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, -1));
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Nombre de Usuario:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
 
@@ -89,7 +87,7 @@ public class InicioSesion extends javax.swing.JFrame {
                 RegistroActionPerformed(evt);
             }
         });
-        getContentPane().add(Registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, 170, 50));
+        getContentPane().add(Registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 330, 170, 50));
 
         jButton2.setBackground(new java.awt.Color(187, 122, 68));
         jButton2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -103,7 +101,7 @@ public class InicioSesion extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 10, 150, 70));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 60, 150, 70));
 
         jButton3.setBackground(new java.awt.Color(187, 122, 68));
         jButton3.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
@@ -124,13 +122,13 @@ public class InicioSesion extends javax.swing.JFrame {
                 PermisoActionPerformed(evt);
             }
         });
-        getContentPane().add(Permiso, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 270, 190, 30));
+        getContentPane().add(Permiso, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, 190, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen_Inicio_Sesion.png"))); // NOI18N
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, -1, 170));
 
-        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoInicio.jpg"))); // NOI18N
+        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/4.jpg"))); // NOI18N
         getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, 500));
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));

@@ -45,34 +45,35 @@ public class RegistrarseCliente extends javax.swing.JFrame {
         Registrar = new javax.swing.JButton();
         txtpassword = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(850, 690));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 150, 30));
-        getContentPane().add(txttelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 150, 30));
-        getContentPane().add(txtcorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 150, 30));
-        getContentPane().add(txtdireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 150, 30));
-        getContentPane().add(txtusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, 150, 30));
+        getContentPane().add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 150, 30));
+        getContentPane().add(txttelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 150, 30));
+        getContentPane().add(txtcorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 150, 30));
+        getContentPane().add(txtdireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 150, 30));
+        getContentPane().add(txtusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 150, 30));
 
         password.setText("Password");
-        getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 70, 30));
+        getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 70, 30));
 
         nombre.setText("Nombre");
-        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 70, 30));
+        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 70, 30));
 
         telefono.setText("Telefono");
-        getContentPane().add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 70, 30));
+        getContentPane().add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 70, 30));
 
         correo.setText("Correo");
-        getContentPane().add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 70, 30));
+        getContentPane().add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 70, 30));
 
         direccion.setText("Direccion");
-        getContentPane().add(direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 70, 30));
+        getContentPane().add(direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 70, 30));
 
         username.setText("Username");
-        getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 70, 30));
+        getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, 70, 30));
 
         Registrar.setText("Registrarse");
         Registrar.addActionListener(new java.awt.event.ActionListener() {
@@ -80,8 +81,8 @@ public class RegistrarseCliente extends javax.swing.JFrame {
                 RegistrarActionPerformed(evt);
             }
         });
-        getContentPane().add(Registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 540, 120, 30));
-        getContentPane().add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, 150, 30));
+        getContentPane().add(Registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 400, 130, 60));
+        getContentPane().add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 430, 150, 30));
 
         jButton2.setBackground(new java.awt.Color(187, 122, 68));
         jButton2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -95,7 +96,11 @@ public class RegistrarseCliente extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 60, 150, 70));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 150, 70));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/9.png"))); // NOI18N
+        jLabel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "REGISTRARSE", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 860, 680));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -185,6 +190,7 @@ public class RegistrarseCliente extends javax.swing.JFrame {
     private javax.swing.JLabel correo;
     private javax.swing.JLabel direccion;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel nombre;
     private javax.swing.JLabel password;
     private javax.swing.JLabel telefono;

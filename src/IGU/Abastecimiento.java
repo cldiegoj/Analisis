@@ -233,7 +233,7 @@ public class Abastecimiento extends javax.swing.JFrame {
             tbPrecios.getColumnModel().getColumn(1).setHeaderValue("Stock");
         }
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 180, 280, 340));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 200, 280, 340));
 
         jButton1.setBackground(new java.awt.Color(187, 122, 66));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -244,10 +244,10 @@ public class Abastecimiento extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 530, 200, 60));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 580, 200, 60));
 
-        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Almacen_End.jpg"))); // NOI18N
-        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1020, 740));
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1.png"))); // NOI18N
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 680));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
