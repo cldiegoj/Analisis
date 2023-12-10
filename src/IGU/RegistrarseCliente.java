@@ -75,6 +75,7 @@ public class RegistrarseCliente extends javax.swing.JFrame {
         username.setText("Username");
         getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, 70, 30));
 
+        Registrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ico_end_Inventario.png"))); // NOI18N
         Registrar.setText("Registrarse");
         Registrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -28,6 +28,7 @@ public class Productos extends javax.swing.JFrame {
      */
     public Productos() {
         initComponents();
+        this.setLocationRelativeTo(null);
         CargarTabla();
     }
 
